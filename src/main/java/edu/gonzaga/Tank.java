@@ -31,7 +31,7 @@ public class Tank {
         health = healthSet; 
         xCord = 0;
         yCord = 0;
-        color = "Red"; 
+        color = "Red";
     }
 
     //constructor for just changing the coordinates but all other default
