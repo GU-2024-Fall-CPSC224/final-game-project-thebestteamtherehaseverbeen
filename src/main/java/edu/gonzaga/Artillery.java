@@ -9,6 +9,12 @@ private boolean hit = false;
 private Integer artilleryX;
 private Integer artilleryY; 
 
+public Artillery(){
+    power = 0;
+    artilleryX = 0;
+    artilleryY = 0;
+}
+
 public void setPower(Integer x){
     power = x; 
 }
