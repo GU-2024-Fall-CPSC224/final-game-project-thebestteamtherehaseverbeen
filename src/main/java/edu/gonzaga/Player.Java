@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class Player {
     public String name;
-    public int color;
+    public String color;
 
     public String getName() {
         return name;
@@ -15,13 +15,14 @@ public class Player {
 
     public void setName(String name) {
         this.name = name;
+    } 
+
+    public String getColor() {
+        return color; 
     }
 
-    public int getColor() {
-        return int;
-    }
 
-    public void setColor(int color) {
+    public void setColor(String color) {
         this.color = color;
     }
 

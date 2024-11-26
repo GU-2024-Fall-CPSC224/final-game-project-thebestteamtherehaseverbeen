@@ -14,16 +14,22 @@ package edu.gonzaga;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 
+import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
+
 import java.awt.event.ActionListener;
+import java.security.cert.PolicyQualifierInfo;
 import java.awt.event.ActionEvent;
 
 /** Main program class for launching your team's program. */
@@ -42,6 +48,12 @@ public class MainGame {
     // buttons that go in the middle, in panel 5:
     private JButton start = new JButton("Start");
     private JButton howToPlay = new JButton("How to Play");
+    JButton red = new JButton();
+    JButton orange = new JButton();
+    JButton yellow = new JButton();
+    JButton green = new JButton();
+    JButton blue = new JButton();
+    JButton pink = new JButton();
     // image that also goes in the middle, in panel 4:
     private JLabel tankPicture = new JLabel();
     private JLabel howToPlayFrameIcon = new JLabel();
@@ -49,6 +61,11 @@ public class MainGame {
     private JFileChooser instructionsFile = new JFileChooser(); // opens when "How to Play" is clicked
     private JFrame instructionsFrame = new JFrame();
     private JLabel instructionsLabel = new JLabel("label");
+
+    JTextField player1NameTextField = new JTextField();
+    JTextField player2NameTextField = new JTextField();
+    Player player1 = new Player();
+    Player player2 = new Player();
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -60,24 +77,28 @@ public class MainGame {
         });
     }
         
+
+    /**
+     * This method formats the start screen that has an image of a tank, a title, 
+     * two buttons, and author names.
+     */
     public void formattingIntroScreen() {
         setUpButtonListeners(); // to make Start and How to Play buttons listen
-
         //formats the frame:
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // defaults settings
-        frame.setSize(750, 750);
+        frame.setSize(600,600);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
         northPanel.setBackground(Color.GREEN); // colors 
         centerPanel.setBackground(Color.lightGray);
         southPanel.setBackground(Color.white);
-        northPanel.setPreferredSize(new Dimension(100, 100)); // dimensions of panels
+        northPanel.setPreferredSize(new Dimension(100, 70)); // dimensions of panels
         centerPanel.setPreferredSize(new Dimension(100, 100));
-        southPanel.setPreferredSize(new Dimension(100, 100));
+        southPanel.setPreferredSize(new Dimension(100, 50));
         frame.add(northPanel,BorderLayout.NORTH);
         frame.add(centerPanel,BorderLayout.CENTER);
         frame.add(southPanel,BorderLayout.SOUTH);
-        title.setFont(new Font("Algerian", Font.BOLD, 75)); // formats the title "TANKS" 
+        title.setFont(new Font("Algerian", Font.BOLD, 50));
         northPanel.add(title);
         southPanel.add(names);
         centerPanel.add(centerNorthPanel,BorderLayout.NORTH); // putting border layout in center panel
@@ -90,6 +111,75 @@ public class MainGame {
         centerSouthPanel.add(howToPlay);
     }
 
+    public void formattingStartScreenPlayerText(JPanel startingPanelCenter) {
+        // frame settings
+        JFrame startingFrame = new JFrame();
+        startingFrame.setLayout(new BorderLayout());
+        startingFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        // making panels
+        JPanel startingPanelNorth = new JPanel();
+        JPanel startingPanelSouth = new JPanel();
+        JPanel playerPanel = new JPanel();
+        // making labels and text fields
+        JLabel startLabel = new JLabel("Player Settings");
+        JLabel player1NameLabel = new JLabel("Player #1 Name: ");
+        JLabel enterNameInstructionsLabel = new JLabel("Enter names and press 'Enter'.");
+        JLabel player2NameLabel = new JLabel("Player #2 Name: ");
+        player1NameTextField.setText("Player 1       ");
+        player2NameTextField.setText("Player 2       ");
+        startLabel.setFont(new Font("Algerian", Font.BOLD, 50));
+        startingPanelNorth.add(startLabel); // add the label to the north panel
+        startingFrame.add(startingPanelNorth, BorderLayout.NORTH);
+        startingFrame.add(startingPanelSouth, BorderLayout.SOUTH);
+        JButton continueButton = new JButton("Continue");
+        startingPanelSouth.add(continueButton);
+        // set up the border layout in the center panel
+        startingPanelCenter.setLayout(new BorderLayout());
+        playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.Y_AXIS));
+        enterNameInstructionsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+        JPanel nameInputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
+        nameInputPanel.add(player1NameLabel);
+        nameInputPanel.add(player1NameTextField);
+        nameInputPanel.add(player2NameLabel);
+        nameInputPanel.add(player2NameTextField);
+        playerPanel.add(enterNameInstructionsLabel); 
+        playerPanel.add(nameInputPanel); 
+        startingPanelCenter.add(playerPanel, BorderLayout.NORTH);
+        // now set up the panel!
+        startingFrame.setSize(500,280);
+        startingFrame.add(startingPanelCenter, BorderLayout.CENTER);
+        startingFrame.add(startingPanelSouth, BorderLayout.SOUTH);
+        startingFrame.setVisible(true);
+    }
+
+    public void formattingStartScreenPlayerColor(JPanel startingPanelCenter) {
+        red.setBackground(Color.red);
+        orange.setBackground(Color.orange);
+        yellow.setBackground(Color.yellow);
+        green.setBackground(Color.green);
+        blue.setBackground(Color.blue);
+        pink.setBackground(Color.pink);
+        JLabel player1Color = new JLabel("Player #1 Color: ");
+        JLabel player2Color = new JLabel("Player #2 Color: ");
+        JPanel player1ColorPanel = new JPanel();
+        JPanel player2ColorPanel = new JPanel();
+        player1ColorPanel.add(player1Color);
+        player1ColorPanel.add(red);
+        player1ColorPanel.add(yellow);
+        player1ColorPanel.add(blue);
+        player2ColorPanel.add(player2Color);
+        player2ColorPanel.add(orange);
+        player2ColorPanel.add(green);
+        player2ColorPanel.add(pink);
+        startingPanelCenter.add(player1ColorPanel, BorderLayout.WEST);
+        startingPanelCenter.add(player2ColorPanel, BorderLayout.EAST);
+    }
+
+
+    /**
+     * This method starts listening to the buttons to notice when they are clicked 
+     * and take proper action / call methods.
+     */
     public void setUpButtonListeners() {
         ActionListener buttonListener = new ActionListener() {
             @Override
@@ -106,12 +196,56 @@ public class MainGame {
                     instructionsFrame.add(instructionsPanel, BorderLayout.CENTER); // Add the panel to the frame
                     instructionsFrame.setVisible(true);
                 } else if (actionEvent.getSource() == start) {
-                    // will start the game
+                    JPanel startingPanelCenter = new JPanel();
+                    formattingStartScreenPlayerText(startingPanelCenter);
+                    formattingStartScreenPlayerColor(startingPanelCenter);
                 }
+            }
+        };
+        ActionListener textListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (actionEvent.getSource() == player1NameTextField) {
+                    player1.setName(player1NameTextField.getText());
+                    System.out.println(player1.getName());
+                } else if (actionEvent.getSource() == player2NameTextField) {
+                    player2.setName(player2NameTextField.getText());
+                    System.out.println(player2.getName());
+                }
+            }
+        };
+        ActionListener colorListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (actionEvent.getSource() == red) {
+                    player1.setColor("0xf33d3d");
+                } else if (actionEvent.getSource() == orange) {
+                    player2.setColor("0xef8a3d");
+                } else if (actionEvent.getSource() == yellow) {
+                    player1.setColor("0xefd83d");
+                } else if (actionEvent.getSource() == green) {
+                    player2.setColor("0x2bcc2e");
+                } else if (actionEvent.getSource() == blue) {
+                    player1.setColor("3b89de");
+                } else if (actionEvent.getSource() == pink) {
+                    player2.setColor("0xed7ef6");
+                }
+                System.out.println(player1.getName() + " color has been set to " + player1.getColor());
+                System.out.println(player2.getName() + " color has been set to " + player2.getColor());
             }
         };
         start.addActionListener(buttonListener);
         howToPlay.addActionListener(buttonListener);
+        player1NameTextField.addActionListener(textListener);
+        player2NameTextField.addActionListener(textListener);
+        red.addActionListener(colorListener);
+        orange.addActionListener(colorListener);
+        yellow.addActionListener(colorListener);
+        green.addActionListener(colorListener);
+        blue.addActionListener(colorListener);
+        pink.addActionListener(colorListener);
     }
+
+    // when adding action listener for continue, set the names again in case users do not press 'Enter'
 
 }

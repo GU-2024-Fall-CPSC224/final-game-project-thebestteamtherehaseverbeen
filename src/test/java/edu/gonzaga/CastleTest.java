@@ -21,4 +21,21 @@ public class CastleTest {
         assertEquals(castle.getHeight(), heightTest);
     }
 
+    @Test
+    void testXCord() {
+        Castle castle = new Castle();
+        int xCordTest = 200;
+        castle.setXCord(xCordTest);
+        assertEquals(castle.getXCord(), xCordTest);
+    } 
+
+    @Test
+    void testCastleConstructor() {
+        int height = 500;
+        int xCoordinate = 600;
+        Castle castle = new Castle(height, xCoordinate);
+        assertEquals(height, castle.getHeight());
+        assertEquals(xCoordinate, castle.getXCord());
+    }
+
 }
