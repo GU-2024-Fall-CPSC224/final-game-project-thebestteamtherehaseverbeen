@@ -9,7 +9,7 @@ public class Artillery {
 private Integer power;
 private boolean hit = false;
 private Integer artilleryX;
-private Integer artilleryY; 
+private Integer artilleryY;
 
 public Artillery(){
     power = 0;
