@@ -7,7 +7,7 @@
  * 
  * Contributors:
  * 
- * 
+ *  
  * Copyright: 2023
  */
 package edu.gonzaga;
@@ -214,7 +214,7 @@ public class MainGame {
                 }
             }
         };
-        ActionListener colorListener = new ActionListener() {
+        ActionListener colorButtonsListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (actionEvent.getSource() == red) {
@@ -230,20 +230,21 @@ public class MainGame {
                 } else if (actionEvent.getSource() == pink) {
                     player2.setColor("0xed7ef6");
                 }
-                System.out.println(player1.getName() + " color has been set to " + player1.getColor());
-                System.out.println(player2.getName() + " color has been set to " + player2.getColor());
+                System.out.println(player1.getName() + "'s color has been set to " + player1.getColor());
+                System.out.println(player2.getName() + "'s color has been set to " + player2.getColor());
+                System.out.println("done in color action listener");
             }
         };
         start.addActionListener(buttonListener);
         howToPlay.addActionListener(buttonListener);
         player1NameTextField.addActionListener(textListener);
         player2NameTextField.addActionListener(textListener);
-        red.addActionListener(colorListener);
-        orange.addActionListener(colorListener);
-        yellow.addActionListener(colorListener);
-        green.addActionListener(colorListener);
-        blue.addActionListener(colorListener);
-        pink.addActionListener(colorListener);
+        red.addActionListener(colorButtonsListener);
+        orange.addActionListener(colorButtonsListener);
+        yellow.addActionListener(colorButtonsListener);
+        green.addActionListener(colorButtonsListener);
+        blue.addActionListener(colorButtonsListener);
+        pink.addActionListener(colorButtonsListener);
     }
 
     // when adding action listener for continue, set the names again in case users do not press 'Enter'
