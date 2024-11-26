@@ -66,9 +66,9 @@ public class MainGame {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 MainGame game = new MainGame();
-                System.out.println("TANKS");
+                System.out.println("Tanks");
                 game.formattingIntroScreen();
-            }
+            } 
         });
     }
         
