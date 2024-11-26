@@ -22,14 +22,12 @@ import java.awt.Font;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import java.awt.event.ActionListener;
-import java.security.cert.PolicyQualifierInfo;
 import java.awt.event.ActionEvent;
 
 /** Main program class for launching your team's program. */
@@ -57,10 +55,7 @@ public class MainGame {
     // image that also goes in the middle, in panel 4:
     private JLabel tankPicture = new JLabel();
     private JLabel howToPlayFrameIcon = new JLabel();
-    private JFileChooser tankImage = new JFileChooser();
-    private JFileChooser instructionsFile = new JFileChooser(); // opens when "How to Play" is clicked
     private JFrame instructionsFrame = new JFrame();
-    private JLabel instructionsLabel = new JLabel("label");
 
     JTextField player1NameTextField = new JTextField();
     JTextField player2NameTextField = new JTextField();
@@ -218,17 +213,17 @@ public class MainGame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (actionEvent.getSource() == red) {
-                    player1.setColor("0xf33d3d");
+                    player1.setColor("0xf33d3d, red");
                 } else if (actionEvent.getSource() == orange) {
-                    player2.setColor("0xef8a3d");
+                    player2.setColor("0xef8a3d, orange");
                 } else if (actionEvent.getSource() == yellow) {
-                    player1.setColor("0xefd83d");
+                    player1.setColor("0xefd83d, yellow");
                 } else if (actionEvent.getSource() == green) {
-                    player2.setColor("0x2bcc2e");
+                    player2.setColor("0x2bcc2e, green");
                 } else if (actionEvent.getSource() == blue) {
-                    player1.setColor("0x3b89de");
+                    player1.setColor("0x3b89de, blue");
                 } else if (actionEvent.getSource() == pink) {
-                    player2.setColor("0xed7ef6");
+                    player2.setColor("0xed7ef6, pink");
                 }
                 System.out.println(player1.getName() + "'s color has been set to " + player1.getColor());
                 System.out.println(player2.getName() + "'s color has been set to " + player2.getColor());
