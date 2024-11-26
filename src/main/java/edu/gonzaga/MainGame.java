@@ -227,7 +227,7 @@ public class MainGame {
                 }
                 System.out.println(player1.getName() + "'s color has been set to " + player1.getColor());
                 System.out.println(player2.getName() + "'s color has been set to " + player2.getColor());
-                System.out.println("done in color action listener");
+                System.out.println("Done in color action listener");
             }
         };
         start.addActionListener(buttonListener);
