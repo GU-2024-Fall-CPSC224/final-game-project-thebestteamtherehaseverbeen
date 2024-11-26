@@ -226,7 +226,7 @@ public class MainGame {
                 } else if (actionEvent.getSource() == green) {
                     player2.setColor("0x2bcc2e");
                 } else if (actionEvent.getSource() == blue) {
-                    player1.setColor("3b89de");
+                    player1.setColor("0x3b89de");
                 } else if (actionEvent.getSource() == pink) {
                     player2.setColor("0xed7ef6");
                 }
