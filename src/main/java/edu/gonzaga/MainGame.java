@@ -33,14 +33,14 @@ import java.awt.event.ActionEvent;
 /** Main program class for launching your team's program. */
 public class MainGame {
     private JFrame frame = new JFrame(); // the frame that opens when the program is run
-    // panels in the border layout: 
+    // panels in the border layout:
     private JPanel northPanel = new JPanel();
     private JPanel centerPanel = new JPanel();
     private JPanel southPanel = new JPanel();
     private JPanel centerNorthPanel = new JPanel();
     private JPanel centerSouthPanel = new JPanel();
     private JPanel instructionsPanel = new JPanel();
-    // the label that goes at the bottom: 
+    // the label that goes at the bottom:
     private JLabel title = new JLabel("TANKS");
     private JLabel names = new JLabel("By Christain Carrington, Abby Fewel, and Ayden Humphries");
     // buttons that go in the middle, in panel 5:
@@ -68,40 +68,40 @@ public class MainGame {
                 MainGame game = new MainGame();
                 System.out.println("Tanks");
                 game.formattingIntroScreen();
-            } 
+            }
         });
     }
-        
 
     /**
-     * This method formats the start screen that has an image of a tank, a title, 
+     * This method formats the start screen that has an image of a tank, a title,
      * two buttons, and author names.
      */
     public void formattingIntroScreen() {
         setUpButtonListeners(); // to make Start and How to Play buttons listen
-        //formats the frame:
+        // formats the frame:
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // defaults settings
-        frame.setSize(600,600);
+        frame.setSize(600, 600);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
-        northPanel.setBackground(Color.GREEN); // colors 
+        northPanel.setBackground(Color.GREEN); // colors
         centerPanel.setBackground(Color.lightGray);
         southPanel.setBackground(Color.white);
         northPanel.setPreferredSize(new Dimension(100, 70)); // dimensions of panels
         centerPanel.setPreferredSize(new Dimension(100, 100));
         southPanel.setPreferredSize(new Dimension(100, 50));
-        frame.add(northPanel,BorderLayout.NORTH);
-        frame.add(centerPanel,BorderLayout.CENTER);
-        frame.add(southPanel,BorderLayout.SOUTH);
+        frame.add(northPanel, BorderLayout.NORTH);
+        frame.add(centerPanel, BorderLayout.CENTER);
+        frame.add(southPanel, BorderLayout.SOUTH);
         title.setFont(new Font("Algerian", Font.BOLD, 50));
         northPanel.add(title);
         southPanel.add(names);
-        centerPanel.add(centerNorthPanel,BorderLayout.NORTH); // putting border layout in center panel
-        centerPanel.add(centerSouthPanel,BorderLayout.SOUTH);
+        centerPanel.add(centerNorthPanel, BorderLayout.NORTH); // putting border layout in center panel
+        centerPanel.add(centerSouthPanel, BorderLayout.SOUTH);
         ImageIcon tankStartScreenIcon = new ImageIcon("tank_intro_screen.jpg");
         tankPicture.setIcon(tankStartScreenIcon);
         centerNorthPanel.add(tankPicture);
-        //centerNorthPanel.setIconImage(tankPicture.getImage()); // STILL WORKING ON GETTING THIS PICTURE TO UPLOAD RIGHT :)
+        // centerNorthPanel.setIconImage(tankPicture.getImage()); // STILL WORKING ON
+        // GETTING THIS PICTURE TO UPLOAD RIGHT :)
         centerSouthPanel.add(start);
         centerSouthPanel.add(howToPlay);
     }
@@ -132,16 +132,16 @@ public class MainGame {
         startingPanelCenter.setLayout(new BorderLayout());
         playerPanel.setLayout(new BoxLayout(playerPanel, BoxLayout.Y_AXIS));
         enterNameInstructionsLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JPanel nameInputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER)); 
+        JPanel nameInputPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
         nameInputPanel.add(player1NameLabel);
         nameInputPanel.add(player1NameTextField);
         nameInputPanel.add(player2NameLabel);
         nameInputPanel.add(player2NameTextField);
-        playerPanel.add(enterNameInstructionsLabel); 
-        playerPanel.add(nameInputPanel); 
+        playerPanel.add(enterNameInstructionsLabel);
+        playerPanel.add(nameInputPanel);
         startingPanelCenter.add(playerPanel, BorderLayout.NORTH);
         // now set up the panel!
-        startingFrame.setSize(500,280);
+        startingFrame.setSize(500, 280);
         startingFrame.add(startingPanelCenter, BorderLayout.CENTER);
         startingFrame.add(startingPanelSouth, BorderLayout.SOUTH);
         startingFrame.setVisible(true);
@@ -170,9 +170,8 @@ public class MainGame {
         startingPanelCenter.add(player2ColorPanel, BorderLayout.EAST);
     }
 
-
     /**
-     * This method starts listening to the buttons to notice when they are clicked 
+     * This method starts listening to the buttons to notice when they are clicked
      * and take proper action / call methods.
      */
     public void setUpButtonListeners() {
@@ -180,7 +179,8 @@ public class MainGame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (actionEvent.getSource() == howToPlay) { // STILL WORKING ON THIS
-                    // this will open a frame that will have a file that has all of the instructions written out
+                    // this will open a frame that will have a file that has all of the instructions
+                    // written out
                     ImageIcon howToPlayIcon = new ImageIcon("how_to_play.png"); // new icon with instructions
                     howToPlayFrameIcon.setIcon(howToPlayIcon); // set the icon for this label
                     instructionsFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -242,6 +242,7 @@ public class MainGame {
         pink.addActionListener(colorButtonsListener);
     }
 
-    // when adding action listener for continue, set the names again in case users do not press 'Enter'
+    // when adding action listener for continue, set the names again in case users
+    // do not press 'Enter'
 
 }
