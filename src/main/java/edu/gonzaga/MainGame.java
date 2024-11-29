@@ -60,8 +60,8 @@ public class MainGame {
 
     JTextField player1NameTextField = new JTextField();
     JTextField player2NameTextField = new JTextField();
-    Player player1 = new Player();
-    Player player2 = new Player();
+    // Player player1 = new Player();
+    // Player player2 = new Player();
 
     public static void main(String[] args) {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
@@ -202,11 +202,11 @@ public class MainGame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (actionEvent.getSource() == player1NameTextField) {
-                    player1.setName(player1NameTextField.getText());
-                    System.out.println(player1.getName());
+                    // player1.setName(player1NameTextField.getText());
+                    // System.out.println(player1.getName());
                 } else if (actionEvent.getSource() == player2NameTextField) {
-                    player2.setName(player2NameTextField.getText());
-                    System.out.println(player2.getName());
+                    // player2.setName(player2NameTextField.getText());
+                    // System.out.println(player2.getName());
                 }
             }
         };
@@ -214,20 +214,22 @@ public class MainGame {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 if (actionEvent.getSource() == red) {
-                    player1.setColor("0xf33d3d, red");
+                    // player1.setColor("0xf33d3d, red");
                 } else if (actionEvent.getSource() == orange) {
-                    player2.setColor("0xef8a3d, orange");
+                    // player2.setColor("0xef8a3d, orange");
                 } else if (actionEvent.getSource() == yellow) {
-                    player1.setColor("0xefd83d, yellow");
+                    // player1.setColor("0xefd83d, yellow");
                 } else if (actionEvent.getSource() == green) {
-                    player2.setColor("0x2bcc2e, green");
+                    // player2.setColor("0x2bcc2e, green");
                 } else if (actionEvent.getSource() == blue) {
-                    player1.setColor("0x3b89de, blue");
+                    // player1.setColor("0x3b89de, blue");
                 } else if (actionEvent.getSource() == pink) {
-                    player2.setColor("0xed7ef6, pink");
+                    // player2.setColor("0xed7ef6, pink");
                 }
-                System.out.println(player1.getName() + "'s color has been set to " + player1.getColor());
-                System.out.println(player2.getName() + "'s color has been set to " + player2.getColor());
+                // System.out.println(player1.getName() + "'s color has been set to " +
+                // player1.getColor());
+                // System.out.println(player2.getName() + "'s color has been set to " +
+                // player2.getColor());
                 System.out.println("Done with the color action listener method");
             }
         };
