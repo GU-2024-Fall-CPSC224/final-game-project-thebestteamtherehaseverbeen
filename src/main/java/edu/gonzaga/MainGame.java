@@ -2,10 +2,11 @@
  * Final project main driver class
  * 
  * 
- * Project Description:
+ * Project Description: Tanks is a two player game that uses physics to aim and fire at the
+ * opponent until health completely runs out for a player. 
  * 
  * 
- * Contributors:
+ * Contributors: Abby Fewel, Ayden Humphries, Christian Carrington
  * 
  *  
  * Copyright: 2023
