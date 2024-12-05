@@ -78,31 +78,37 @@ public class ToPlay {
      * two buttons, and author names.
      */
     public void formattingIntroScreen() {
-        setUpButtonListeners(); // to make Start and How to Play buttons listen
-        // formats the frame:
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // defaults settings
-        frame.setSize(1400, 800);
+        setUpButtonListeners(); // Setup listeners for buttons
+
+        // Frame setup
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(1500, 950);
         frame.setLayout(new BorderLayout());
-        frame.setVisible(true);
-        northPanel.setBackground(Color.GREEN); // colors
-        centerPanel.setBackground(Color.lightGray);
-        southPanel.setBackground(Color.white);
-        northPanel.setPreferredSize(new Dimension(100, 70)); // dimensions of panels
-        centerPanel.setPreferredSize(new Dimension(100, 100));
-        southPanel.setPreferredSize(new Dimension(100, 50));
-        frame.add(northPanel, BorderLayout.NORTH);
-        frame.add(centerPanel, BorderLayout.CENTER);
-        frame.add(southPanel, BorderLayout.SOUTH);
-        title.setFont(new Font("Algerian", Font.BOLD, 50));
-        northPanel.add(title);
-        southPanel.add(names);
-        centerPanel.add(centerNorthPanel, BorderLayout.NORTH); // putting border layout in center panel
-        centerPanel.add(centerSouthPanel, BorderLayout.SOUTH);
-        ImageIcon tankStartScreenIcon = new ImageIcon("tank_intro_screen.jpg");
+
+        // Load image
+        JLabel tankPicture = new JLabel();
+        ImageIcon tankStartScreenIcon = new ImageIcon("tank_intro_screen.png");
         tankPicture.setIcon(tankStartScreenIcon);
-        centerNorthPanel.add(tankPicture);
+        tankPicture.setSize(1500, 850);
+        tankPicture.setHorizontalAlignment(JLabel.CENTER);
+
+        // Add components
+        frame.add(tankPicture, BorderLayout.CENTER); // Add image in the center
+        frame.add(centerSouthPanel, BorderLayout.SOUTH); // Buttons in the south panel
+        centerSouthPanel.setSize(1500, 100);
+        centerSouthPanel.setBackground(Color.lightGray);
+        start.setBackground(new Color(0x134511));
+        howToPlay.setBackground(new Color(0x134511));
+        start.setForeground(Color.white);
+        howToPlay.setForeground(Color.white);
+
         centerSouthPanel.add(start);
         centerSouthPanel.add(howToPlay);
+
+        // Make frame visible
+        frame.setVisible(true);
+        frame.revalidate();
+        frame.repaint();
     }
 
     public void formattingStartScreenPlayerText(JPanel startingPanelCenter) {
