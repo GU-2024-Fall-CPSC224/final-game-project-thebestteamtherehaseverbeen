@@ -184,23 +184,30 @@ public class ToPlay {
     }
 
     public void gameOverScreen() {
+        JLabel gameOverLabelBackground = new JLabel();
+        ImageIcon gameOverIcon = new ImageIcon("game_over.png");
+        gameOverLabelBackground.setIcon(gameOverIcon);
+        gameOverLabelBackground.setSize(1100, 700);
+        gameOverLabelBackground.setHorizontalAlignment(JLabel.CENTER);
         JLabel gameOverLabel = new JLabel("GAME OVER");
         gameOverLabel.setFont(new Font("Algerian", Font.BOLD, 100));
         JPanel gameOverScreenPanel = new JPanel(new BorderLayout());
         gameOverFrame.setBackground(Color.black);
         gameOverLabel.setForeground(Color.red);
-        JLabel winnerLabel = new JLabel("Player 1 wins!");
+        JLabel winnerLabel = new JLabel("Player 1 wins!"); // this is just a default
         if (player1Tank.getHealth() == 0) {
             winnerLabel.setText(player2name + "wins!");
         } else if (player2Tank.getHealth() == 0) {
             winnerLabel.setText(player2name + "wins!");
         }
         winnerLabel.setForeground(Color.white);
-        gameOverScreenPanel.add(gameOverLabel, BorderLayout.NORTH);
-        gameOverScreenPanel.add(winnerLabel, BorderLayout.CENTER);
-        gameOverScreenPanel.setBackground(Color.black);
+        // gameOverScreenPanel.add(gameOverLabel, BorderLayout.NORTH);
+        // gameOverScreenPanel.add(winnerLabel, BorderLayout.CENTER);
+        // gameOverScreenPanel.setBackground(Color.black);
+        gameOverScreenPanel.add(gameOverLabelBackground, BorderLayout.CENTER);
         gameOverFrame.add(gameOverScreenPanel);
-        gameOverFrame.setSize(820, 800);
+        gameOverFrame.setSize(1200, 800);
+        gameOverFrame.setLocation(90, 75);
         gameOverFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameOverFrame.setVisible(true);
     }
