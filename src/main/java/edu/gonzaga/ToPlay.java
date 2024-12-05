@@ -81,7 +81,7 @@ public class ToPlay {
         setUpButtonListeners(); // to make Start and How to Play buttons listen
         // formats the frame:
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // defaults settings
-        frame.setSize(800, 800);
+        frame.setSize(1400, 800);
         frame.setLayout(new BorderLayout());
         frame.setVisible(true);
         northPanel.setBackground(Color.GREEN); // colors
