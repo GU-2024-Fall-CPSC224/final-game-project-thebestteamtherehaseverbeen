@@ -148,6 +148,7 @@ public class ToPlay {
         startingFrame.setSize(500, 280);
         startingFrame.add(startingPanelCenter, BorderLayout.CENTER);
         startingFrame.add(startingPanelSouth, BorderLayout.SOUTH);
+        startingFrame.setLocation(500, 300);
         startingFrame.setVisible(true);
     }
 
@@ -330,8 +331,9 @@ public class ToPlay {
                     System.out.println(getPlayer2Name());
                     gameFrame.setIconImage(new ImageIcon("background.png").getImage());
                     gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-                    gameFrame.setSize(820, 800);
+                    gameFrame.setSize(1400, 850);
                     gameFrame.add(panelWithBackground); // Add the custom panel with background
+                    gameFrame.setLocation(50, 20);
                     gameFrame.setVisible(true);
                 }
             }
