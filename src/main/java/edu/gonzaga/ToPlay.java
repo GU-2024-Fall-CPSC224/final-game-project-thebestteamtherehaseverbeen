@@ -28,6 +28,8 @@ public class ToPlay {
     boolean easyOrHard = true; // true is easy, false is hard, default is easy
     ArrayList<Tank> tank_Array = new ArrayList<>(); // this is where we will store the tanks
     Ground ground = new Ground(100, 300);
+    Tank tank1 = new Tank(250, 700, 100, "Red");
+    Tank tank2 = new Tank(1100, 700, 100, "Green");
 
     public ToPlay() {
         this.name = "Unidentified User";
@@ -49,7 +51,8 @@ public class ToPlay {
     private JButton start = new JButton("Start");
     private JButton howToPlay = new JButton("How to Play");
     private JButton continueButton = new JButton("Continue");
-
+    JPanel fireButtonPanel = new JPanel();
+    JButton fireButton = new JButton("Fire!");
     JButton red = new JButton();
     JButton orange = new JButton();
     JButton yellow = new JButton();
@@ -315,6 +318,16 @@ public class ToPlay {
                 }
             }
         };
+        ActionListener fireButtonListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (actionEvent.getSource() == fireButton) {
+                    System.out.println("Fire button was pressed");
+                    tank1.fire();
+                    // we will call fire from here
+                }
+            }
+        };
         ActionListener continueListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -344,14 +357,6 @@ public class ToPlay {
                 }
             }
         };
-        ActionListener fireButton = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (actionEvent.getSource() == fireButton) {
-                    System.out.println("Fire button was pressed");
-                }
-            }
-        };
         start.addActionListener(buttonListener);
         howToPlay.addActionListener(buttonListener);
         player1NameTextField.addActionListener(textListener);
@@ -365,6 +370,7 @@ public class ToPlay {
         continueButton.addActionListener(continueListener);
         easy.addActionListener(difficultyListener);
         hard.addActionListener(difficultyListener);
+        fireButton.addActionListener(fireButtonListener);
     }
 
     public void createWorld() {
@@ -372,8 +378,7 @@ public class ToPlay {
         Ground ground = new Ground(100, 300); // Assuming this is a custom class for the ground
 
         // Create tanks and add them to the tank array
-        Tank tank1 = new Tank(250, 700, 100, "Red");
-        Tank tank2 = new Tank(1100, 700, 100, "Green");
+
         tank_Array.add(tank1);
         tank_Array.add(tank2);
 
@@ -404,8 +409,6 @@ public class ToPlay {
         // Use a timer to continuously repaint the panel
         javax.swing.Timer timer = new javax.swing.Timer(16, e -> renderPanel.repaint());
         timer.start();
-        JPanel fireButtonPanel = new JPanel();
-        JButton fireButton = new JButton("Fire!");
         fireButtonPanel.add(fireButton);
         fireButton.setBackground(Color.DARK_GRAY);
         fireButton.setForeground(Color.white);
