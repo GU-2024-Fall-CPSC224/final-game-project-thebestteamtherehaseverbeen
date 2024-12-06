@@ -41,7 +41,7 @@ public class TankTest {
     @Test
     public void testMoveLeft() {
         // Test moving the tank left
-        tank.moveMeLeft();
+        tank.moveLeft();
         assertEquals(95, tank.getXCord(), "X coordinate should be decremented by 5 after moving left");
         assertEquals(95, tank.getBody().getTransform().getTranslationX(), "Body's X coordinate should match tank's X coordinate");
     }
@@ -49,7 +49,7 @@ public class TankTest {
     @Test
     public void testMoveRight() {
         // Test moving the tank right
-        tank.moveMeRight();
+        tank.moveRight();
         assertEquals(105, tank.getXCord(), "X coordinate should be incremented by 5 after moving right");
         assertEquals(105, tank.getBody().getTransform().getTranslationX(), "Body's X coordinate should match tank's X coordinate");
     }
@@ -58,11 +58,11 @@ public class TankTest {
     public void testMoveLimits() {
         // Test movement limits to ensure the tank can't move beyond the defined boundaries
         tank.setXCord(0); // Set the tank near the left boundary
-        tank.moveMeLeft();
+        tank.moveLeft();
         assertEquals(0, tank.getXCord(), "Tank should not move beyond the left boundary");
 
         tank.setXCord(200); // Set the tank near the right boundary
-        tank.moveMeRight();
+        tank.moveRight();
         assertEquals(200, tank.getXCord(), "Tank should not move beyond the right boundary");
     }
 
@@ -117,7 +117,7 @@ public class TankTest {
     @Test
     public void testMoveAndUpdateBodyPosition() {
         // Test if moving the tank updates the body position
-        tank.moveMeRight();
+        tank.moveRight();
         assertEquals(tank.getXCord(), tank.getBody().getTransform().getTranslationX(), "Body's X coordinate should match tank's X coordinate");
     }
 }

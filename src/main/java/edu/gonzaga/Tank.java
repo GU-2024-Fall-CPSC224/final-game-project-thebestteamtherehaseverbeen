@@ -185,6 +185,8 @@ if it does not work
                 return Color.WHITE;
             default:
                 return Color.GRAY; // Default color
+            }
+        }
             
     public Integer moveLeft() {
         if (this.xCord < 5) {
@@ -211,6 +213,7 @@ if it does not work
             this.barrel.translate(5, 0); // Move the barrel along with the tank
 
         }
+        return xCord; 
     }
 
     public void hit(int damage) {

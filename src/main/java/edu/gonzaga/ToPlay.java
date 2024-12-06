@@ -364,10 +364,6 @@ public class ToPlay {
         //Tank tank2 = new Tank(1000, 500, 0, "Green");
     }
 
-    public void addToTankArray(int index, Tank tank) {
-        this.tank_Array.add(index, tank);
-    }
-
     // when adding action listener for continue, set the names again in case users
     // do not press 'Enter'
 
