@@ -45,14 +45,18 @@ public class Tank {
         this.barrel.addFixture(new BodyFixture(barrelShape));
         this.barrel.translate(xCord, yCord + bodyHeight / 2 + barrelHeight / 2); // Position it above the tank
     }
-/* we will need to make the tank and then pass it into this method and import swing stuff and then 
-probably just make it visible from there. tbd, we might have to add it to a label or something for it 
-to be able to call the .setVisible(true) method. we can try and put it in on its own though and just ask chat 
-if it does not work
-    private void tankGUI(Tank playerTank) {
-        playerTank.setVisible(true);
-    }
-        */
+    /*
+     * we will need to make the tank and then pass it into this method and import
+     * swing stuff and then
+     * probably just make it visible from there. tbd, we might have to add it to a
+     * label or something for it
+     * to be able to call the .setVisible(true) method. we can try and put it in on
+     * its own though and just ask chat
+     * if it does not work
+     * private void tankGUI(Tank playerTank) {
+     * playerTank.setVisible(true);
+     * }
+     */
 
     // Constructors with default dimensions
     public Tank(String color) {
@@ -167,7 +171,6 @@ if it does not work
         return body;
     }
 
-
     public Body getBarrel() {
         return barrel;
     }
@@ -189,9 +192,9 @@ if it does not work
                 return Color.WHITE;
             default:
                 return Color.GRAY; // Default color
-            }
         }
-            
+    }
+
     public Integer moveLeft() {
         if (this.xCord < 5) {
             this.xCord = 0;
@@ -217,52 +220,52 @@ if it does not work
             this.barrel.translate(5, 0); // Move the barrel along with the tank
 
         }
-        return xCord; 
+        return xCord;
     }
 
     public void hit(int damage) {
         this.health = Math.max(0, this.health - damage);
     }
-    
-    // Inside the Tank class, add the draw method
-public void draw(Graphics g) {
-    // Draw the body of the tank
-    g.setColor(this.bodyColor);
-    g.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
 
-    // Draw the barrel of the tank
-    g.setColor(Color.BLACK);  // or another color for the barrel
-    g.fillRect(this.xCord, (int) (this.yCord + bodyHeight / 2 - barrelHeight / 2),
-            (int) this.barrelWidth, (int) this.barrelHeight);
-}
+    // Inside the Tank class, add the draw method
+    public void draw(Graphics g) {
+        // Draw the body of the tank
+        g.setColor(this.bodyColor);
+        g.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
+
+        // Draw the barrel of the tank
+        g.setColor(Color.BLACK); // or another color for the barrel
+        g.fillRect(this.xCord, (int) (this.yCord + bodyHeight / 2 - barrelHeight / 2),
+                (int) this.barrelWidth, (int) this.barrelHeight);
+    }
 
     public int fire() {
-    // Create a new artillery object
-    Artillery newArtillery = new Artillery();
-    newArtillery.setPower(50); // Set the power of the artillery
-    newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate based on barrel's position
-    newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y coordinate based on tank's position
+        // Create a new artillery object
+        Artillery newArtillery = new Artillery();
+        newArtillery.setPower(50); // Set the power of the artillery
+        newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate based on barrel's position
+        newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y coordinate based on tank's position
 
-    // Create a simple window to visualize the firing
-    JFrame fireFrame = new JFrame("Artillery Fire");
-    fireFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    fireFrame.setSize(800, 600);
+        // Create a simple window to visualize the firing
+        JFrame fireFrame = new JFrame("Artillery Fire");
+        fireFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fireFrame.setSize(800, 600);
 
-    JPanel firePanel = new JPanel() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(newArtillery.getColor());
-            g.fillOval(newArtillery.getArtX(), newArtillery.getArtY(), 
-                       (int) (newArtillery.getRadius() * 2), 
-                       (int) (newArtillery.getRadius() * 2));
-        }
-    };
+        JPanel firePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(newArtillery.getColor());
+                g.fillOval(newArtillery.getArtX(), newArtillery.getArtY(),
+                        (int) (newArtillery.getRadius() * 2),
+                        (int) (newArtillery.getRadius() * 2));
+            }
+        };
 
-    fireFrame.add(firePanel);
-    fireFrame.setVisible(true);
+        fireFrame.add(firePanel);
+        fireFrame.setVisible(true);
 
-    return newArtillery.getPower(); // Return the power as a result
-}
+        return newArtillery.getPower(); // Return the power as a result
+    }
 
 }
