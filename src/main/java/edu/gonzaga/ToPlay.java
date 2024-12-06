@@ -54,7 +54,8 @@ public class ToPlay {
     private JButton howToPlay = new JButton("How to Play");
     private JButton continueButton = new JButton("Continue");
     JPanel fireButtonPanel = new JPanel();
-    JButton fireButton = new JButton("Fire!");
+    JButton fireButton = new JButton("Earthquake!");
+    JButton tsunamiButton = new JButton("Tsunami!");
     JButton red = new JButton();
     JButton orange = new JButton();
     JButton yellow = new JButton();
@@ -325,6 +326,7 @@ public class ToPlay {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (actionEvent.getSource() == fireButton) {
                     System.out.println("Fire button was pressed");
+                    // takeTurn(gameFrame, newArtillery);
                     tank1.fire(tank1, gameFrame, newArtillery);
 
                     // Create a timer to delay the gameOverScreen by 5 seconds
@@ -336,6 +338,26 @@ public class ToPlay {
                     gameOverTimer.start(); // Start the timer
                 }
 
+            }
+        };
+        ActionListener tsunamiListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (actionEvent.getSource() == tsunamiButton) {
+                    System.out.println("Tsunami button was pressed");
+                    // Call the tsunami effect
+                    tank1.tsunami(tank1, gameFrame, newArtillery);
+
+                    // Create a timer to delay the gameOverScreen by 5 seconds
+                    Timer gameOverTimer = new Timer(5000, e -> {
+                        // Ensure the gameOverScreen does not close the tsunamiFrame
+                        System.out.println("Game Over screen will appear now");
+                        tank1.gameOverScreen(); // Call the gameOverScreen method after 5 seconds
+                    });
+
+                    gameOverTimer.setRepeats(false); // Ensure the timer only runs once
+                    gameOverTimer.start(); // Start the timer
+                }
             }
         };
         ActionListener continueListener = new ActionListener() {
@@ -381,17 +403,20 @@ public class ToPlay {
         easy.addActionListener(difficultyListener);
         hard.addActionListener(difficultyListener);
         fireButton.addActionListener(fireButtonListener);
+        tsunamiButton.addActionListener(tsunamiListener);
     }
 
     public void createWorld() {
         World world = new World();
         Ground ground = new Ground(100, 300);
+
         // Create tanks and add them to the tank array
         Tank tank1 = new Tank(250, 700, 100, "Red");
         Tank tank2 = new Tank(1100, 700, 100, "Green");
         Castle castle = new Castle();
         tank_Array.add(tank1);
         tank_Array.add(tank2);
+
         // Create a custom rendering panel with a background image
         JPanel renderPanel = new JPanel() {
             private Image backgroundImage = new ImageIcon("background.png").getImage();
@@ -404,20 +429,20 @@ public class ToPlay {
 
                 // Draw each tank
                 for (Tank tank : tank_Array) {
-                    tank.draw(g, tank, tank1, tank2, newArtillery);
-
+                    tank.draw(g, tank, tank1, tank2, newArtillery); // Make sure this method works and draws properly
                 }
-
-                // castle.draw(g);
+                // castle.draw(g); // If you want to draw the castle, make sure this works
             }
         };
-        // Use a timer to continuously repaint the panel
-        javax.swing.Timer timer = new javax.swing.Timer(16, e -> renderPanel.repaint());
-        timer.start();
-        fireButtonPanel.add(fireButton);
-        fireButton.setBackground(Color.DARK_GRAY);
 
+        // Add fire and tsunami buttons to the button panel
+        fireButtonPanel.add(fireButton);
+        fireButtonPanel.add(tsunamiButton);
+        fireButton.setBackground(Color.DARK_GRAY);
         fireButton.setForeground(Color.WHITE);
+        tsunamiButton.setBackground(Color.DARK_GRAY);
+        tsunamiButton.setForeground(Color.WHITE);
+
         // Configure the game frame layout
         gameFrame.setLayout(new BorderLayout()); // Set layout to BorderLayout
         gameFrame.add(renderPanel, BorderLayout.CENTER); // Add renderPanel to the center
@@ -428,6 +453,77 @@ public class ToPlay {
         gameFrame.setLocation(50, 20);
         gameFrame.setVisible(true); // Make the frame visible
     }
-    // when adding action listener for continue, set the names again in case users
-    // do not press 'Enter'
+
+    /*
+     * public void takeTurn(JFrame gameFrame, Artillery artillery) {
+     * // Initialize properties for the artillery
+     * double power = 50; // Initial velocity
+     * double angle = Math.toRadians(45); // Launch angle in radians
+     * double gravity = 9.8; // Gravity
+     * double timeStep = 0.05; // Time interval for updates
+     * 
+     * // Velocity components
+     * double velocityX = power * Math.cos(angle);
+     * double velocityY = -power * Math.sin(angle); // Negative to go upward
+     * initially
+     * 
+     * // Create a custom JPanel for the artillery
+     * JPanel artilleryPanel = new JPanel() {
+     * 
+     * @Override
+     * protected void paintComponent(Graphics g) {
+     * super.paintComponent(g);
+     * // Draw the artillery
+     * g.setColor(artillery.getColor());
+     * g.fillOval(0, 0, (int) (artillery.getRadius() * 2), (int)
+     * (artillery.getRadius() * 2));
+     * }
+     * };
+     * 
+     * // Set the artillery panel bounds
+     * artilleryPanel.setOpaque(false);
+     * 
+     * // Add the artillery panel to the frame
+     * gameFrame.setLayout(null);
+     * gameFrame.add(artilleryPanel);
+     * gameFrame.revalidate();
+     * gameFrame.repaint();
+     * 
+     * // Timer to animate the motion
+     * Timer timer = new Timer((int) (timeStep * 1000), new ActionListener() {
+     * double time = 0; // Elapsed time
+     * 
+     * @Override
+     * public void actionPerformed(ActionEvent e) {
+     * // Increment time
+     * time += timeStep;
+     * 
+     * // Update projectile motion
+     * int newX = (int) (startX + velocityX * time);
+     * int newY = (int) (startY - (velocityY * time - 0.5 * gravity * time * time));
+     * 
+     * // Check if artillery hits the ground
+     * if (newY > gameFrame.getHeight() - artilleryDiameter) {
+     * ((Timer) e.getSource()).stop();
+     * artilleryPanel.setVisible(false);
+     * gameFrame.remove(artilleryPanel);
+     * gameFrame.repaint();
+     * return;
+     * }
+     * 
+     * // Update the artillery position
+     * artillery.setArtX(newX);
+     * artillery.setArtY(newY);
+     * 
+     * // Move the panel and repaint
+     * artilleryPanel.setBounds(newX, newY, artilleryDiameter, artilleryDiameter);
+     * gameFrame.repaint();
+     * }
+     * });
+     * 
+     * // Start the timer
+     * timer.start();
+     * }
+     */
+
 }
