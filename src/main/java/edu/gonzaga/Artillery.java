@@ -1,7 +1,15 @@
 package edu.gonzaga;
 
+import java.awt.Color;
+
 import java.util.ArrayList;
 import java.util.Scanner;
+import org.dyn4j.dynamics.Body;
+import org.dyn4j.dynamics.BodyFixture;
+import org.dyn4j.dynamics.joint.RevoluteJoint;
+import org.dyn4j.geometry.Rectangle;
+import java.awt.Graphics;
+import java.awt.Color;
 /*
  * This class holds all the code under main. This is where the stuff under the abstraction happens.
  */
@@ -11,6 +19,8 @@ public class Artillery {
     private boolean hit = false;
     private Integer artilleryX;
     private Integer artilleryY;
+    private Body body;
+    private Color color = Color.RED;
 
     public Artillery() {
         power = 0;
