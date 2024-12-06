@@ -401,19 +401,11 @@ public class ToPlay {
         timer.start();
         fireButtonPanel.add(fireButton);
         fireButton.setBackground(Color.DARK_GRAY);
-<<<<<<< HEAD
-=======
-
->>>>>>> e11aba5346ba0d20fc6fbd2d863a03391bc5dc6c
         fireButton.setForeground(Color.WHITE);
         // Configure the game frame layout
         gameFrame.setLayout(new BorderLayout()); // Set layout to BorderLayout
         gameFrame.add(renderPanel, BorderLayout.CENTER); // Add renderPanel to the center
         gameFrame.add(fireButtonPanel, BorderLayout.SOUTH); // Add fireButtonPanel to the bottom
-<<<<<<< HEAD
-=======
-
->>>>>>> e11aba5346ba0d20fc6fbd2d863a03391bc5dc6c
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameFrame.setSize(1400, 850);
         gameFrame.setLocation(50, 20);
