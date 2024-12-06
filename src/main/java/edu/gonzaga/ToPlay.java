@@ -28,6 +28,8 @@ public class ToPlay {
     boolean easyOrHard = true; // true is easy, false is hard, default is easy
     ArrayList<Tank> tank_Array = new ArrayList<>(); // this is where we will store the tanks
     Ground ground = new Ground(100, 300);
+    Tank tank1 = new Tank(250, 700, 100, "Red");
+    Tank tank2 = new Tank(1100, 700, 100, "Green");
 
     public ToPlay() {
         this.name = "Unidentified User";
@@ -49,7 +51,8 @@ public class ToPlay {
     private JButton start = new JButton("Start");
     private JButton howToPlay = new JButton("How to Play");
     private JButton continueButton = new JButton("Continue");
-
+    JPanel fireButtonPanel = new JPanel();
+    JButton fireButton = new JButton("Fire!");
     JButton red = new JButton();
     JButton orange = new JButton();
     JButton yellow = new JButton();
@@ -315,6 +318,16 @@ public class ToPlay {
                 }
             }
         };
+        ActionListener fireButtonListener = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (actionEvent.getSource() == fireButton) {
+                    System.out.println("Fire button was pressed");
+                    tank1.fire();
+                    // we will call fire from here
+                }
+            }
+        };
         ActionListener continueListener = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
@@ -344,14 +357,6 @@ public class ToPlay {
                 }
             }
         };
-        ActionListener fireButton = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (actionEvent.getSource() == fireButton) {
-                    System.out.println("Fire button was pressed");
-                }
-            }
-        };
         start.addActionListener(buttonListener);
         howToPlay.addActionListener(buttonListener);
         player1NameTextField.addActionListener(textListener);
@@ -365,18 +370,17 @@ public class ToPlay {
         continueButton.addActionListener(continueListener);
         easy.addActionListener(difficultyListener);
         hard.addActionListener(difficultyListener);
+        fireButton.addActionListener(fireButtonListener);
     }
 
     public void createWorld() {
         World world = new World();
-        Ground ground = new Ground(100, 300); // Assuming this is a custom class for the ground
-
+        Ground ground = new Ground(100, 300);
         // Create tanks and add them to the tank array
         Tank tank1 = new Tank(250, 700, 100, "Red");
         Tank tank2 = new Tank(1100, 700, 100, "Green");
         tank_Array.add(tank1);
         tank_Array.add(tank2);
-
         // Create a custom rendering panel with a background image
         JPanel renderPanel = new JPanel() {
             private Image backgroundImage = new ImageIcon("background.png").getImage();
@@ -385,11 +389,7 @@ public class ToPlay {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Draw the background image
-
                 g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-
-                // Draw the ground
-                // ground.draw(g);
 
                 // Draw each tank
                 for (Tank tank : tank_Array) {
@@ -397,29 +397,21 @@ public class ToPlay {
                 }
             }
         };
-
-        // Add the rendering panel to the game frame
-        gameFrame.add(renderPanel);
-
         // Use a timer to continuously repaint the panel
         javax.swing.Timer timer = new javax.swing.Timer(16, e -> renderPanel.repaint());
         timer.start();
-        JPanel fireButtonPanel = new JPanel();
-        JButton fireButton = new JButton("Fire!");
         fireButtonPanel.add(fireButton);
         fireButton.setBackground(Color.DARK_GRAY);
-        fireButton.setForeground(Color.white);
-
-        fireButtonPanel.setSize(100, 40);
-        fireButtonPanel.setLocation(200, 800);
-        gameFrame.add(fireButtonPanel);
+        fireButton.setForeground(Color.WHITE);
+        // Configure the game frame layout
+        gameFrame.setLayout(new BorderLayout()); // Set layout to BorderLayout
+        gameFrame.add(renderPanel, BorderLayout.CENTER); // Add renderPanel to the center
+        gameFrame.add(fireButtonPanel, BorderLayout.SOUTH); // Add fireButtonPanel to the bottom
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameFrame.setSize(1400, 850);
         gameFrame.setLocation(50, 20);
         gameFrame.setVisible(true); // Make the frame visible
     }
-
     // when adding action listener for continue, set the names again in case users
     // do not press 'Enter'
-
 }
