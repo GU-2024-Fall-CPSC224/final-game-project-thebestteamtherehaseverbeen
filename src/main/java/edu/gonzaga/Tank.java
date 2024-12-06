@@ -45,14 +45,18 @@ public class Tank {
         this.barrel.addFixture(new BodyFixture(barrelShape));
         this.barrel.translate(xCord, yCord + bodyHeight / 2 + barrelHeight / 2); // Position it above the tank
     }
-/* we will need to make the tank and then pass it into this method and import swing stuff and then 
-probably just make it visible from there. tbd, we might have to add it to a label or something for it 
-to be able to call the .setVisible(true) method. we can try and put it in on its own though and just ask chat 
-if it does not work
-    private void tankGUI(Tank playerTank) {
-        playerTank.setVisible(true);
-    }
-        */
+    /*
+     * we will need to make the tank and then pass it into this method and import
+     * swing stuff and then
+     * probably just make it visible from there. tbd, we might have to add it to a
+     * label or something for it
+     * to be able to call the .setVisible(true) method. we can try and put it in on
+     * its own though and just ask chat
+     * if it does not work
+     * private void tankGUI(Tank playerTank) {
+     * playerTank.setVisible(true);
+     * }
+     */
 
     // Constructors with default dimensions
     public Tank(String color) {
@@ -167,7 +171,6 @@ if it does not work
         return body;
     }
 
-
     public Body getBarrel() {
         return barrel;
     }
@@ -189,9 +192,9 @@ if it does not work
                 return Color.WHITE;
             default:
                 return Color.GRAY; // Default color
-            }
         }
-            
+    }
+
     public Integer moveLeft() {
         if (this.xCord < 5) {
             this.xCord = 0;
@@ -202,7 +205,7 @@ if it does not work
             this.body.translate(-5, 0);
             this.barrel.translate(-5, 0); // Move the barrel along with the tank
         }
-        moved = true;
+        this.moved = true;
         return xCord;
     }
 
@@ -217,24 +220,26 @@ if it does not work
             this.barrel.translate(5, 0); // Move the barrel along with the tank
 
         }
-        return xCord; 
+        this.moved = true;
+        return xCord;
+
     }
 
     public void hit(int damage) {
         this.health = Math.max(0, this.health - damage);
     }
-    
-    // Inside the Tank class, add the draw method
-public void draw(Graphics g) {
-    // Draw the body of the tank
-    g.setColor(this.bodyColor);
-    g.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
 
-    // Draw the barrel of the tank
-    g.setColor(Color.BLACK);  // or another color for the barrel
-    g.fillRect(this.xCord, (int) (this.yCord + bodyHeight / 2 - barrelHeight / 2),
-            (int) this.barrelWidth, (int) this.barrelHeight);
-}
+    // Inside the Tank class, add the draw method
+    public void draw(Graphics g) {
+        // Draw the body of the tank
+        g.setColor(this.bodyColor);
+        g.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
+
+        // Draw the barrel of the tank
+        g.setColor(Color.BLACK); // or another color for the barrel
+        g.fillRect(this.xCord, (int) (this.yCord + bodyHeight / 2 - barrelHeight / 2),
+                (int) this.barrelWidth, (int) this.barrelHeight);
+    }
 
     public int fire() {
     // Create a new artillery object
