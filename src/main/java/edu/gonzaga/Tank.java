@@ -220,6 +220,7 @@ public class Tank {
             this.barrel.translate(5, 0); // Move the barrel along with the tank
 
         }
+        this.moved = true;
         return xCord;
     }
 
