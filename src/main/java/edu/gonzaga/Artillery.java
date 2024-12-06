@@ -18,12 +18,14 @@ public class Artillery {
         power = 0;
         artilleryX = 0;
         artilleryY = 0;
+        color = Color.RED;
     }
 
     public Artillery(int startX, int startY, int power) {
         this.power = power;
         this.artilleryX = startX;
         this.artilleryY = startY;
+        color = Color.RED;
     }
 
     public void setPower(Integer x) {
