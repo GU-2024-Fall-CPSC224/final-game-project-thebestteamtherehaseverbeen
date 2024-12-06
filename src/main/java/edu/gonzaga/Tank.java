@@ -27,7 +27,7 @@ public class Tank {
         this.xCord = xCord;
         this.yCord = yCord;
         this.health = health;
-        setColor(color); // Set both the string and actual color
+        setColor(color); // Set both the string and the actual color
 
         // Create the tank body with specified dimensions
         this.body = new Body();
@@ -106,7 +106,7 @@ public class Tank {
         this.barrel.addFixture(new BodyFixture(barrelShape));
     }
 
-    // Method to create a revolute joint for the barrel
+    // RevoluteJoint for barrel (unchanged as per your request)
     public RevoluteJoint createBarrelJoint() {
         return new RevoluteJoint(this.body, this.barrel, this.body.getWorldCenter());
     }
