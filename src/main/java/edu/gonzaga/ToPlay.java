@@ -324,6 +324,7 @@ public class ToPlay {
                 if (actionEvent.getSource() == fireButton) {
                     System.out.println("Fire button was pressed");
                     tank1.fire();
+
                     // we will call fire from here
                 }
             }

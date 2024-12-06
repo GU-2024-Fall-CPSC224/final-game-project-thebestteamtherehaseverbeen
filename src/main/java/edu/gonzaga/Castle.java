@@ -8,7 +8,7 @@ import org.dyn4j.geometry.Rectangle;
 
 public class Castle {
     private int xCoordinate;
-    private Body body; 
+    public Body body; 
     private Color color = Color.BLACK; 
 
     private int bodyWidth = 150;
@@ -33,6 +33,14 @@ public class Castle {
         this.body = new Body(); 
         Rectangle castleShape = new Rectangle(bodyWidth, bodyHeight); 
         this.body.addFixture(new BodyFixture(castleShape)); 
+    }
+
+    public int getBodyWidth(){
+        return bodyWidth;
+    }
+
+    public int getBodyHeight(){
+        return bodyHeight;
     }
 
     public int getXCord() {

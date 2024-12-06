@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import org.dyn4j.dynamics.Body;
+import org.dyn4j.dynamics.BodyFixture;
+import org.dyn4j.geometry.Circle; 
 
 public class Artillery {
     private Integer power;
@@ -19,6 +21,10 @@ public class Artillery {
         artilleryX = 0;
         artilleryY = 0;
         color = Color.RED;
+
+        this.body = new Body();
+        Circle missile = new Circle(radius); 
+        this.body.addFixture(new BodyFixture(missile)); 
     }
 
     public Artillery(int startX, int startY, int power) {
@@ -26,6 +32,8 @@ public class Artillery {
         this.artilleryX = startX;
         this.artilleryY = startY;
         color = Color.RED;
+        this.body = new Body();
+        Circle missile = new Circle(radius); 
     }
 
     public void setPower(Integer x) {
