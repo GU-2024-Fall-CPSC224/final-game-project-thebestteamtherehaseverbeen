@@ -363,8 +363,8 @@ public class ToPlay {
         Ground ground = new Ground(100, 300); // Assuming this is a custom class for the ground
     
         // Create tanks and add them to the tank array
-        Tank tank1 = new Tank(200, 500, 100, "Red");
-        Tank tank2 = new Tank(800, 500, 100, "Green");
+        Tank tank1 = new Tank(300, 800, 100, "Red");
+        Tank tank2 = new Tank(1200, 800, 100, "Green");
         tank_Array.add(tank1);
         tank_Array.add(tank2);
     

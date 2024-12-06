@@ -1,11 +1,15 @@
 package edu.gonzaga;
 
+import java.awt.Color;
+import java.awt.Graphics;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.joint.RevoluteJoint;
 import org.dyn4j.geometry.Rectangle;
-import java.awt.Graphics;
-import java.awt.Color;
 
 public class Tank {
     private Body body;
@@ -18,8 +22,8 @@ public class Tank {
     private Boolean moved;
 
     // Dimensions for the tank body and barrel
-    private double bodyWidth = 50;
-    private double bodyHeight = 30;
+    private double bodyWidth = 80;
+    private double bodyHeight = 50;
     private double barrelWidth = 30;
     private double barrelHeight = 10;
 
@@ -233,6 +237,32 @@ public void draw(Graphics g) {
 }
 
     public int fire() {
-        return 0; // Placeholder for artillery implementation
-    }
+    // Create a new artillery object
+    Artillery newArtillery = new Artillery();
+    newArtillery.setPower(50); // Set the power of the artillery
+    newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate based on barrel's position
+    newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y coordinate based on tank's position
+
+    // Create a simple window to visualize the firing
+    JFrame fireFrame = new JFrame("Artillery Fire");
+    fireFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+    fireFrame.setSize(800, 600);
+
+    JPanel firePanel = new JPanel() {
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            g.setColor(newArtillery.getColor());
+            g.fillOval(newArtillery.getArtX(), newArtillery.getArtY(), 
+                       (int) (newArtillery.getRadius() * 2), 
+                       (int) (newArtillery.getRadius() * 2));
+        }
+    };
+
+    fireFrame.add(firePanel);
+    fireFrame.setVisible(true);
+
+    return newArtillery.getPower(); // Return the power as a result
+}
+
 }
