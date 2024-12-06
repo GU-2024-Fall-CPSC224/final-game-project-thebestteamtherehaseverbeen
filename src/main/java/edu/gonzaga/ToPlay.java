@@ -344,6 +344,14 @@ public class ToPlay {
                 }
             }
         };
+        ActionListener fireButton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                if (actionEvent.getSource() == fireButton) {
+                    System.out.println("Fire button was pressed");
+                }
+            }
+        };
         start.addActionListener(buttonListener);
         howToPlay.addActionListener(buttonListener);
         player1NameTextField.addActionListener(textListener);
@@ -396,7 +404,15 @@ public class ToPlay {
         // Use a timer to continuously repaint the panel
         javax.swing.Timer timer = new javax.swing.Timer(16, e -> renderPanel.repaint());
         timer.start();
+        JPanel fireButtonPanel = new JPanel();
+        JButton fireButton = new JButton("Fire!");
+        fireButtonPanel.add(fireButton);
+        fireButton.setBackground(Color.DARK_GRAY);
+        fireButton.setForeground(Color.white);
 
+        fireButtonPanel.setSize(100, 40);
+        fireButtonPanel.setLocation(200, 800);
+        gameFrame.add(fireButtonPanel);
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameFrame.setSize(1400, 850);
         gameFrame.setLocation(50, 20);
