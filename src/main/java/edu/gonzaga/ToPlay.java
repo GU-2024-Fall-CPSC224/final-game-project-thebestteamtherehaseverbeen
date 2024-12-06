@@ -366,6 +366,7 @@ public class ToPlay {
         // Create tanks and add them to the tank array
         Tank tank1 = new Tank(250, 700, 100, "Red");
         Tank tank2 = new Tank(1100, 700, 100, "Green");
+        Castle castle = new Castle();
         tank_Array.add(tank1);
         tank_Array.add(tank2);
 
@@ -387,6 +388,8 @@ public class ToPlay {
                 for (Tank tank : tank_Array) {
                     tank.draw(g);
                 }
+
+                castle.draw(g); 
             }
         };
 

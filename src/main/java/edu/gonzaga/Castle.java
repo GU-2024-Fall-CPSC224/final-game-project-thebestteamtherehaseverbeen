@@ -1,24 +1,38 @@
 package edu.gonzaga;
+import java.awt.Color;
+import java.awt.Graphics;
+
+import org.dyn4j.dynamics.Body;
+import org.dyn4j.dynamics.BodyFixture;
+import org.dyn4j.geometry.Rectangle;
+
 public class Castle {
-    private int height;
     private int xCoordinate;
+    private Body body; 
+    private Color color = Color.BLACK; 
+
+    private int bodyWidth = 150;
+    private int bodyHeight = 300;
 
     public Castle() {
-        height = 100;
-        xCoordinate = 100;
+        color = Color.BLACK; 
+        bodyHeight = 600;
+        bodyWidth = 255; 
+        xCoordinate = 565;
+
+        this.body = new Body(); 
+        Rectangle castleShape = new Rectangle(bodyWidth, bodyHeight); 
+        this.body.addFixture(new BodyFixture(castleShape)); 
     }
 
-    public Castle(int height, int xCoordinate) {
-        this.height = height;
+    public Castle(int xCoordinate) {
+        this.bodyHeight = 600; 
+        this.bodyWidth = 300;
         this.xCoordinate = xCoordinate;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
+        
+        this.body = new Body(); 
+        Rectangle castleShape = new Rectangle(bodyWidth, bodyHeight); 
+        this.body.addFixture(new BodyFixture(castleShape)); 
     }
 
     public int getXCord() {
@@ -27,5 +41,10 @@ public class Castle {
 
     public void setXCord(int xCoordinate) {
         this.xCoordinate = xCoordinate;
+    }
+
+    public void draw(Graphics g){
+        g.setColor(this.color);
+        g.fillRect(xCoordinate, 300, bodyWidth, bodyHeight); 
     }
 }
