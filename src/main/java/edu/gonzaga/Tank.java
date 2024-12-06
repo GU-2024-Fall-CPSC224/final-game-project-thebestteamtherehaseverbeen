@@ -217,16 +217,16 @@ public class Tank {
     }
 
     // Inside the Tank class, add the draw method
-public void draw(Graphics g) {
-    // Draw the body of the tank
-    g.setColor(this.bodyColor);
-    g.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
+    public void draw(Graphics g) {
+        // Draw the body of the tank
+        g.setColor(this.bodyColor);
+        g.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
 
-    // Draw the barrel of the tank
-    g.setColor(Color.GRAY);  // or another color for the barrel
-    g.fillRect(this.xCord, (int) (this.yCord + bodyHeight / 2 - barrelHeight / 2),
-            (int) this.barrelWidth, (int) this.barrelHeight);
-}
+        // Draw the barrel of the tank
+        g.setColor(Color.GRAY); // or another color for the barrel
+        g.fillRect(this.xCord, (int) (this.yCord + bodyHeight / 2 - barrelHeight / 2),
+                (int) this.barrelWidth, (int) this.barrelHeight);
+    }
 
     public int fire() {
         // Create a new artillery object

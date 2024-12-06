@@ -30,6 +30,9 @@ public class ToPlay {
     Ground ground = new Ground(100, 300);
     Tank tank1 = new Tank(250, 700, 100, "Red");
     Tank tank2 = new Tank(1100, 700, 100, "Green");
+    World world;
+    JPanel renderPanel;
+    Artillery artillery;
 
     public ToPlay() {
         this.name = "Unidentified User";
@@ -374,17 +377,26 @@ public class ToPlay {
     }
 
     public void createWorld() {
-        World world = new World();
+        world = new World();
         Ground ground = new Ground(100, 300);
         // Create tanks and add them to the tank array
         Tank tank1 = new Tank(250, 700, 100, "Red");
         Tank tank2 = new Tank(1100, 700, 100, "Green");
         Castle castle = new Castle();
+        // Artillery artillery = new Artillery();
+        // world.addBody(artillery);
+
         tank_Array.add(tank1);
         tank_Array.add(tank2);
         // Create a custom rendering panel with a background image
-        JPanel renderPanel = new JPanel() {
+        renderPanel = new JPanel() {
             private Image backgroundImage = new ImageIcon("background.png").getImage();
+
+            /*
+             * if(artillery.getFired()) {
+             * artillery.updateCoords();
+             * }
+             */
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -397,11 +409,22 @@ public class ToPlay {
                     tank.draw(g);
                 }
 
-                castle.draw(g); 
+                castle.draw(g);
+
+                /*
+                 * if(artillery.getFired()) {
+                 * g.setColor(Color.RED);
+                 * g.fillOval(artillery.getArtX() - 5, artillery.getArtY() - 5, 10, 10); // Draw
+                 * the artillery at its current position
+                 * }
+                 */
+
             }
+
         };
+
         // Use a timer to continuously repaint the panel
-        javax.swing.Timer timer = new javax.swing.Timer(16, e -> renderPanel.repaint());
+        javax.swing.Timer timer = new javax.swing.Timer(10, e -> renderPanel.repaint());
         timer.start();
         fireButtonPanel.add(fireButton);
         fireButton.setBackground(Color.DARK_GRAY);
@@ -419,4 +442,14 @@ public class ToPlay {
     }
     // when adding action listener for continue, set the names again in case users
     // do not press 'Enter'
+
+    public void startSimulation() {
+        world.update(1.0 / 60.0);
+
+        renderPanel.repaint();
+    }
+
+    public void takeTurn() {
+
+    }
 }
