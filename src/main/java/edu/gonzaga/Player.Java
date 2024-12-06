@@ -22,6 +22,10 @@ public class Player {
         this.name = str;
     }
 
+    public void getName(){
+        return this.name; 
+    }
+
     public void takeTurn() {
 
     }
