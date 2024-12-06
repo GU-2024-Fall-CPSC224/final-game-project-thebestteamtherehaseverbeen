@@ -26,6 +26,7 @@ public class ToPlay {
     String color;
     boolean easyOrHard = true; // true is easy, false is hard, default is easy
     ArrayList<Tank> tank_Array = new ArrayList<>(); // this is where we will store the tanks
+    Ground ground = new Ground(100, 300);
 
     public ToPlay() {
         this.name = "Unidentified User";
@@ -381,14 +382,6 @@ public class ToPlay {
     }
 
 
-    // public Tank getTankatIndex(int index){
-    // this.tank_Array(index);
-    // return tank_Array(index);
-    // }
-        Ground ground = new Ground(100, 300);
-        //Tank tank1 = new Tank(500, 500, 0, "Red");
-        //Tank tank2 = new Tank(1000, 500, 0, "Green");
-    }
 
     // when adding action listener for continue, set the names again in case users
     // do not press 'Enter'
