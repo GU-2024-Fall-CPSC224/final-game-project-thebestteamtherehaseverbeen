@@ -1,21 +1,29 @@
 package edu.gonzaga;
 
-import java.util.ArrayList;
-import java.util.Scanner;
-/*
- * This class holds all the code under main. This is where the stuff under the abstraction happens.
- */
+import java.awt.Color;
+import java.awt.Graphics;
+
+import org.dyn4j.dynamics.Body;
 
 public class Artillery {
     private Integer power;
     private boolean hit = false;
     private Integer artilleryX;
     private Integer artilleryY;
+    private Body body;
+    private Color color = Color.RED;
+    private double radius = 15; // Radius of the artillery projectile
 
-    public Artillery() {
+    public Artillery(){
         power = 0;
         artilleryX = 0;
         artilleryY = 0;
+    }
+
+    public Artillery(int startX, int startY, int power) {
+        this.power = power;
+        this.artilleryX = startX;
+        this.artilleryY = startY;
     }
 
     public void setPower(Integer x) {
@@ -50,4 +58,23 @@ public class Artillery {
         return this.artilleryY;
     }
 
+    public double getRadius(){
+        return this.radius; 
+    }
+
+    public Color getColor(){
+        return this.color;
+    }
+
+    public void draw(Graphics g) {
+        g.setColor(color);
+        g.fillOval(artilleryX - (int) radius, artilleryY - (int) radius, (int) radius * 2, (int) radius * 2);
+    }
+
+    public void move() {
+        if (!hit) {
+            artilleryX += power / 10; // Adjust speed horizontally
+            artilleryY -= power / 20; // Simulate upward movement (gravity effect to be added)
+        }
+    }
 }
