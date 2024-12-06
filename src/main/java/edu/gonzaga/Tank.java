@@ -159,7 +159,6 @@ public class Tank {
         return body;
     }
 
-
     public Body getBarrel() {
         return barrel;
     }
@@ -181,9 +180,9 @@ public class Tank {
                 return Color.WHITE;
             default:
                 return Color.GRAY; // Default color
-            }
         }
-            
+    }
+
     public Integer moveLeft() {
         if (this.xCord < 5) {
             this.xCord = 0;
@@ -194,7 +193,7 @@ public class Tank {
             this.body.translate(-5, 0);
             this.barrel.translate(-5, 0); // Move the barrel along with the tank
         }
-        moved = true;
+        this.moved = true;
         return xCord;
     }
 
@@ -209,13 +208,14 @@ public class Tank {
             this.barrel.translate(5, 0); // Move the barrel along with the tank
 
         }
-        return xCord; 
+        this.moved = true;
+        return xCord;
     }
 
     public void hit(int damage) {
         this.health = Math.max(0, this.health - damage);
     }
-    
+
     // Inside the Tank class, add the draw method
 public void draw(Graphics g) {
     // Draw the body of the tank
@@ -229,32 +229,32 @@ public void draw(Graphics g) {
 }
 
     public int fire() {
-    // Create a new artillery object
-    Artillery newArtillery = new Artillery();
-    newArtillery.setPower(50); // Set the power of the artillery
-    newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate based on barrel's position
-    newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y coordinate based on tank's position
+        // Create a new artillery object
+        Artillery newArtillery = new Artillery();
+        newArtillery.setPower(50); // Set the power of the artillery
+        newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate based on barrel's position
+        newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y coordinate based on tank's position
 
-    // Create a simple window to visualize the firing
-    JFrame fireFrame = new JFrame("Artillery Fire");
-    fireFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    fireFrame.setSize(800, 600);
+        // Create a simple window to visualize the firing
+        JFrame fireFrame = new JFrame("Artillery Fire");
+        fireFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fireFrame.setSize(800, 600);
 
-    JPanel firePanel = new JPanel() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(newArtillery.getColor());
-            g.fillOval(newArtillery.getArtX(), newArtillery.getArtY(), 
-                       (int) (newArtillery.getRadius() * 2), 
-                       (int) (newArtillery.getRadius() * 2));
-        }
-    };
+        JPanel firePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(newArtillery.getColor());
+                g.fillOval(newArtillery.getArtX(), newArtillery.getArtY(),
+                        (int) (newArtillery.getRadius() * 2),
+                        (int) (newArtillery.getRadius() * 2));
+            }
+        };
 
-    fireFrame.add(firePanel);
-    fireFrame.setVisible(true);
+        fireFrame.add(firePanel);
+        fireFrame.setVisible(true);
 
-    return newArtillery.getPower(); // Return the power as a result
-}
+        return newArtillery.getPower(); // Return the power as a result
+    }
 
 }
