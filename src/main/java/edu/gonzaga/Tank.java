@@ -41,6 +41,14 @@ public class Tank {
         this.barrel.addFixture(new BodyFixture(barrelShape));
         this.barrel.translate(xCord, yCord + bodyHeight / 2 + barrelHeight / 2); // Position it above the tank
     }
+/* we will need to make the tank and then pass it into this method and import swing stuff and then 
+probably just make it visible from there. tbd, we might have to add it to a label or something for it 
+to be able to call the .setVisible(true) method. we can try and put it in on its own though and just ask chat 
+if it does not work
+    private void tankGUI(Tank playerTank) {
+        playerTank.setVisible(true);
+    }
+        */
 
     // Constructors with default dimensions
     public Tank(String color) {

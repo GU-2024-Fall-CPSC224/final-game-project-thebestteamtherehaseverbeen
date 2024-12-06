@@ -360,21 +360,14 @@ public class ToPlay {
     public void createWorld() {
         World world = new World();
         Ground ground = new Ground(100, 300);
-        Tank tank1 = new Tank(100, 100, 0, "Red");
-        Tank tank2 = new Tank(100, 500, 0, "Green");
-        addToTankArray(0, tank1);
-        addToTankArray(1, tank2);
-        // test comment
+        //Tank tank1 = new Tank(500, 500, 0, "Red");
+        //Tank tank2 = new Tank(1000, 500, 0, "Green");
     }
 
     public void addToTankArray(int index, Tank tank) {
         this.tank_Array.add(index, tank);
     }
 
-    // public Tank getTankatIndex(int index){
-    // this.tank_Array(index);
-    // return tank_Array(index);
-    // }
     // when adding action listener for continue, set the names again in case users
     // do not press 'Enter'
 
