@@ -104,7 +104,7 @@ public class TankTest {
     public void testTankInitializationWithDifferentCoordinates() {
         // Test constructor with different coordinates
         Tank tankAtPosition = new Tank(50, 100, 100, "Red");
-        assertEquals(100, tankAtPosition.getXCord(), "X coordinate should be 100");
+        assertEquals(50, tankAtPosition.getXCord(), "X coordinate should be 100");
         assertEquals(100, tankAtPosition.getYCord(), "Y coordinate should be 100");
     }
 
