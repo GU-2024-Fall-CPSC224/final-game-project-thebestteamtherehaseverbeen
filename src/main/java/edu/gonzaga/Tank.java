@@ -220,13 +220,7 @@ public class Tank {
             this.barrel.translate(5, 0); // Move the barrel along with the tank
 
         }
-<<<<<<< HEAD
         return xCord;
-=======
-        this.moved = true;
-        return xCord;
-
->>>>>>> 0ae02a604128d2e79d79614b84e28772cb3ad53f
     }
 
     public void hit(int damage) {
