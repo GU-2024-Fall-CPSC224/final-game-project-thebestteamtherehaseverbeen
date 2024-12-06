@@ -7,6 +7,7 @@ import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -361,43 +362,46 @@ public class ToPlay {
     public void createWorld() {
         World world = new World();
         Ground ground = new Ground(100, 300); // Assuming this is a custom class for the ground
-    
+
         // Create tanks and add them to the tank array
         Tank tank1 = new Tank(200, 500, 100, "Red");
         Tank tank2 = new Tank(800, 500, 100, "Green");
         tank_Array.add(tank1);
         tank_Array.add(tank2);
-    
-        // Create a custom rendering panel
+
+        // Create a custom rendering panel with a background image
         JPanel renderPanel = new JPanel() {
+            private Image backgroundImage = new ImageIcon("background.png").getImage();
+
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                // Draw the background image
+
+                g.drawImage(backgroundImage, 50, 20, getWidth(), getHeight(), this);
+
                 // Draw the ground
-                //ground.draw(g);
-    
+                // ground.draw(g);
+
                 // Draw each tank
                 for (Tank tank : tank_Array) {
                     tank.draw(g);
                 }
             }
         };
-    
-        renderPanel.setBackground(Color.BLACK); // Optional: Set a background color
-        gameFrame.add(renderPanel); // Add the rendering panel to the game frame
-    
+
+        // Add the rendering panel to the game frame
+        gameFrame.add(renderPanel);
+
         // Use a timer to continuously repaint the panel
         javax.swing.Timer timer = new javax.swing.Timer(16, e -> renderPanel.repaint());
         timer.start();
-    
+
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameFrame.setSize(1400, 850);
         gameFrame.setLocation(50, 20);
         gameFrame.setVisible(true); // Make the frame visible
     }
-    
-
-
 
     // when adding action listener for continue, set the names again in case users
     // do not press 'Enter'
