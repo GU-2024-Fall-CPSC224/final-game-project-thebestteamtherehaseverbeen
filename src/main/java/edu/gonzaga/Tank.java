@@ -1,14 +1,10 @@
 package edu.gonzaga;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
@@ -24,6 +20,7 @@ public class Tank {
     private String color; // String representation of color
     private Color bodyColor; // Actual Color object used for rendering
     private Boolean moved;
+    JFrame gameOverFrame = new JFrame();
 
     // Dimensions for the tank body and barrel
     private double bodyWidth = 80;
@@ -224,56 +221,42 @@ public class Tank {
     public void draw(Graphics g, Tank tank, Tank tank1, Tank tank2, Artillery newArtillery) {
         if (tank == tank1) {
             Graphics2D g2d = (Graphics2D) g; // Cast Graphics to Graphics2D for advanced features
-
             // Save the current transformation state
             AffineTransform originalTransform = g2d.getTransform();
-
             // Draw the body of the tank
             g2d.setColor(this.bodyColor);
             g2d.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
-
             // Adjust the barrel base coordinates to move it up and to the right
             int barrelBaseX = this.xCord + 30; // Move farther right from the body
             int barrelBaseY = ((int) (this.yCord + bodyHeight / 2 - 10)) - 13; // Move higher up
-
             // Move the origin to the new barrel's base
             g2d.translate(barrelBaseX, barrelBaseY);
-
             // Rotate the barrel to 45 degrees (in radians)
             g2d.rotate(Math.toRadians(-45)); // -45 degrees for an upward angle
-
             // Draw the barrel at the new rotated position
             g2d.setColor(Color.BLACK);
             g2d.fillRect(0, -(int) (barrelHeight / 2), (int) barrelWidth, (int) barrelHeight);
-
             // Restore the original transformation state
             g2d.setTransform(originalTransform);
             newArtillery.draw(g, tank);
             newArtillery.setLocation((tank.getXCord()) + 55, (tank.getYCord() - 20));
         } else {
             Graphics2D g2d = (Graphics2D) g; // Cast Graphics to Graphics2D for advanced features
-
             // Save the current transformation state
             AffineTransform originalTransform = g2d.getTransform();
-
             // Draw the body of the tank
             g2d.setColor(this.bodyColor);
             g2d.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
-
             // Adjust the barrel base coordinates to move it up and to the right
             int barrelBaseX = this.xCord + 10; // Move farther right from the body
             int barrelBaseY = ((int) (this.yCord + bodyHeight / 2 - 10)) - 30; // Move higher up
-
             // Move the origin to the new barrel's base
             g2d.translate(barrelBaseX, barrelBaseY);
-
             // Rotate the barrel to 45 degrees (in radians)
             g2d.rotate(Math.toRadians(45)); // -45 degrees for an upward angle
-
             // Draw the barrel at the new rotated position
             g2d.setColor(Color.BLACK);
             g2d.fillRect(0, -(int) (barrelHeight / 2), (int) barrelWidth, (int) barrelHeight);
-
             // Restore the original transformation state
             g2d.setTransform(originalTransform);
             newArtillery.draw(g, tank);
@@ -282,18 +265,20 @@ public class Tank {
 
     }
 
-    public int fire(Tank tank1, JFrame gameFrame) {
-        // Create a new artillery object
-        Artillery newArtillery = new Artillery();
-        newArtillery.setPower(50); // Set the power of the artillery
-        newArtillery.setArtX(200);
-        newArtillery.setArtY(200);
-        // newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate
-        // based on barrel's position
-        // newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y
-        // coordinate based on tank's position
+    public int fire(Tank tank1, JFrame gameFrame, Artillery newArtillery) {
+        // Set initial properties of the artillery
+        newArtillery.setPower(50); // Initial velocity
+        double angle = Math.toRadians(45); // Launch angle in radians
+        newArtillery.setArtX(200); // Starting X position
+        newArtillery.setArtY(500); // Starting Y position (lower on the screen)
 
-        // Create the firePanel for rendering the artillery
+        // Calculate initial velocity components
+        double velocityX = newArtillery.getPower() * Math.cos(angle);
+        double velocityY = -newArtillery.getPower() * Math.sin(angle); // Negative for upward direction
+        double gravity = 9.8; // Gravitational constant
+        double timeStep = 0.05; // Time step for updates
+
+        // Create a panel to render the artillery
         JPanel firePanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
@@ -305,22 +290,70 @@ public class Tank {
             }
         };
 
-        // Set the panel location, size, and background color
+        // Set panel properties
         int artilleryDiameter = (int) (newArtillery.getRadius() * 2);
         firePanel.setBounds(newArtillery.getArtX(), newArtillery.getArtY(), artilleryDiameter, artilleryDiameter);
+        firePanel.setOpaque(false); // Transparent background
 
-        firePanel.setBackground(Color.black); // Set the background to black to make the artillery stand out
-        firePanel.setOpaque(false); // Make sure the panel's background is not blocking the drawing
-
-        // Add the firePanel to the JFrame
-        gameFrame.setLayout(null); // Use absolute positioning
-        gameFrame.add(firePanel); // Add the panel to the frame
-
-        // Revalidate and repaint the frame to ensure the panel is rendered
+        // Add the panel to the frame
+        gameFrame.setLayout(null); // Absolute positioning
+        gameFrame.add(firePanel);
         gameFrame.revalidate();
         gameFrame.repaint();
+
+        // Timer for animating the projectile
+        Timer timer = new Timer((int) (timeStep * 1000), new ActionListener() {
+            double time = 0; // Elapsed time
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Update time
+                time += timeStep;
+
+                // Update positions based on projectile motion equations
+                int newX = (int) (200 + velocityX * time);
+                int newY = (int) (500 - (velocityY * time - 0.5 * gravity * time * time));
+
+                // Stop the timer if the projectile hits the ground
+                if (newY > gameFrame.getHeight()) {
+                    ((Timer) e.getSource()).stop();
+                    gameFrame.remove(firePanel);
+                    gameFrame.repaint();
+                    return;
+                }
+
+                // Update the artillery's position
+                newArtillery.setArtX(newX);
+                newArtillery.setArtY(newY);
+
+                // Update panel location and repaint
+                firePanel.setBounds(newX, newY, artilleryDiameter, artilleryDiameter);
+                gameFrame.repaint();
+            }
+        });
+
+        // Start the timer
+        timer.start();
 
         return newArtillery.getPower(); // Return the power as a result
     }
 
+    public void gameOverScreen() {
+        JLabel gameOverLabelBackground = new JLabel();
+        ImageIcon gameOverIcon = new ImageIcon("game_over.png");
+        gameOverLabelBackground.setIcon(gameOverIcon);
+        gameOverLabelBackground.setSize(1100, 700);
+        gameOverLabelBackground.setHorizontalAlignment(JLabel.CENTER);
+        JLabel gameOverLabel = new JLabel("GAME OVER");
+        gameOverLabel.setFont(new Font("Algerian", Font.BOLD, 100));
+        JPanel gameOverScreenPanel = new JPanel(new BorderLayout());
+        gameOverFrame.setBackground(Color.black);
+        gameOverLabel.setForeground(Color.red);
+        gameOverScreenPanel.add(gameOverLabelBackground, BorderLayout.CENTER);
+        gameOverFrame.add(gameOverScreenPanel);
+        gameOverFrame.setSize(1200, 800);
+        gameOverFrame.setLocation(90, 75);
+        gameOverFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gameOverFrame.setVisible(true);
+    }
 }

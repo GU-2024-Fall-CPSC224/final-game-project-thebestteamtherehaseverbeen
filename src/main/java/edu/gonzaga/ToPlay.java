@@ -19,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.Timer;
 
 import org.dyn4j.world.World;
 
@@ -30,6 +31,7 @@ public class ToPlay {
     Ground ground = new Ground(100, 300);
     Tank tank1 = new Tank(250, 700, 100, "Red");
     Tank tank2 = new Tank(1100, 700, 100, "Green");
+    Artillery newArtillery = new Artillery();
 
     public ToPlay() {
         this.name = "Unidentified User";
@@ -323,9 +325,17 @@ public class ToPlay {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (actionEvent.getSource() == fireButton) {
                     System.out.println("Fire button was pressed");
-                    tank1.fire(tank1, gameFrame);
-                    // we will call fire from here
+                    tank1.fire(tank1, gameFrame, newArtillery);
+
+                    // Create a timer to delay the gameOverScreen by 5 seconds
+                    Timer gameOverTimer = new Timer(5000, e -> {
+                        tank1.gameOverScreen(); // Call the gameOverScreen method after 5 seconds
+                    });
+
+                    gameOverTimer.setRepeats(false); // Ensure the timer only runs once
+                    gameOverTimer.start(); // Start the timer
                 }
+
             }
         };
         ActionListener continueListener = new ActionListener() {
@@ -380,7 +390,6 @@ public class ToPlay {
         Tank tank1 = new Tank(250, 700, 100, "Red");
         Tank tank2 = new Tank(1100, 700, 100, "Green");
         Castle castle = new Castle();
-        Artillery newArtillery = new Artillery();
         tank_Array.add(tank1);
         tank_Array.add(tank2);
         // Create a custom rendering panel with a background image

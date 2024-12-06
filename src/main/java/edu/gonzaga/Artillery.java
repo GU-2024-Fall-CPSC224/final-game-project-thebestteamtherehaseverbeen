@@ -12,7 +12,7 @@ public class Artillery {
     private Integer artilleryY;
     private Body body;
     private Color color = Color.RED;
-    private double radius = 10; // Radius of the artillery projectile
+    private double radius = 10;
 
     public Artillery() {
         power = 0;
@@ -79,7 +79,7 @@ public class Artillery {
         g.fillOval(artilleryX - (int) radius, artilleryY - (int) radius, (int) radius * 2, (int) radius * 2);
     }
 
-    public void move() {
+    public void move(Artillery newArtillery) {
         if (!hit) {
             artilleryX += power / 10; // Adjust speed horizontally
             artilleryY -= power / 20; // Simulate upward movement (gravity effect to be added)
