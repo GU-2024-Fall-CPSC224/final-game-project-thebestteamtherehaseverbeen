@@ -360,25 +360,42 @@ public class ToPlay {
 
     public void createWorld() {
         World world = new World();
-        Ground ground = new Ground(100, 300);  // Assuming this is a custom class for the ground
+        Ground ground = new Ground(100, 300); // Assuming this is a custom class for the ground
     
-        // Create and add tanks to the tank array
-        Tank tank1 = new Tank(500, 500, 100, "Red");
-        Tank tank2 = new Tank(1000, 500, 100, "Green");
+        // Create tanks and add them to the tank array
+        Tank tank1 = new Tank(200, 500, 100, "Red");
+        Tank tank2 = new Tank(800, 500, 100, "Green");
+        tank_Array.add(tank1);
+        tank_Array.add(tank2);
     
-        // Add action to render the tanks on screen (to make it visible)
-        gameFrame.add(new JPanel() {
+        // Create a custom rendering panel
+        JPanel renderPanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                // Draw each tank in the tank array
-                tank1.draw(g);
-                tank2.draw(g); 
-            }
-        });
+                // Draw the ground
+                //ground.draw(g);
     
-        gameFrame.setVisible(true); // Make sure the game frame is visible
+                // Draw each tank
+                for (Tank tank : tank_Array) {
+                    tank.draw(g);
+                }
+            }
+        };
+    
+        renderPanel.setBackground(Color.BLACK); // Optional: Set a background color
+        gameFrame.add(renderPanel); // Add the rendering panel to the game frame
+    
+        // Use a timer to continuously repaint the panel
+        javax.swing.Timer timer = new javax.swing.Timer(16, e -> renderPanel.repaint());
+        timer.start();
+    
+        gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        gameFrame.setSize(1400, 850);
+        gameFrame.setLocation(50, 20);
+        gameFrame.setVisible(true); // Make the frame visible
     }
+    
 
 
 
