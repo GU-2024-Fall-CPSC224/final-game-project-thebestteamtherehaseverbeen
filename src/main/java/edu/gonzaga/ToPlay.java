@@ -385,6 +385,11 @@ public class ToPlay {
     // this.tank_Array(index);
     // return tank_Array(index);
     // }
+        Ground ground = new Ground(100, 300);
+        //Tank tank1 = new Tank(500, 500, 0, "Red");
+        //Tank tank2 = new Tank(1000, 500, 0, "Green");
+    }
+
     // when adding action listener for continue, set the names again in case users
     // do not press 'Enter'
 
