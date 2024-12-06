@@ -11,6 +11,8 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
@@ -33,6 +35,7 @@ public class ToPlay {
     World world;
     JPanel renderPanel;
     Artillery artillery;
+    int turnCount = 0;
 
     public ToPlay() {
         this.name = "Unidentified User";
@@ -383,7 +386,7 @@ public class ToPlay {
         Tank tank1 = new Tank(250, 700, 100, "Red");
         Tank tank2 = new Tank(1100, 700, 100, "Green");
         Castle castle = new Castle();
-        // Artillery artillery = new Artillery();
+        artillery = new Artillery();
         // world.addBody(artillery);
 
         tank_Array.add(tank1);
@@ -391,12 +394,6 @@ public class ToPlay {
         // Create a custom rendering panel with a background image
         renderPanel = new JPanel() {
             private Image backgroundImage = new ImageIcon("background.png").getImage();
-
-            /*
-             * if(artillery.getFired()) {
-             * artillery.updateCoords();
-             * }
-             */
 
             @Override
             protected void paintComponent(Graphics g) {
@@ -411,13 +408,11 @@ public class ToPlay {
 
                 castle.draw(g);
 
-                /*
-                 * if(artillery.getFired()) {
-                 * g.setColor(Color.RED);
-                 * g.fillOval(artillery.getArtX() - 5, artillery.getArtY() - 5, 10, 10); // Draw
-                 * the artillery at its current position
-                 * }
-                 */
+                if (artillery.getFired()) {
+                    g.setColor(Color.RED);
+                    g.fillOval(artillery.getArtX() - 5, artillery.getArtY() - 5, 10, 10); // Draw the artillery at its
+                                                                                          // current position
+                }
 
             }
 
@@ -443,13 +438,38 @@ public class ToPlay {
     // when adding action listener for continue, set the names again in case users
     // do not press 'Enter'
 
-    public void startSimulation() {
+    public void updateSimulation() {
         world.update(1.0 / 60.0);
+
+        if (artillery.getFired()) {
+            artillery.updateCoords();
+        }
 
         renderPanel.repaint();
     }
 
     public void takeTurn() {
+        artillery.fireArtillery();
+        setUpKeyListeners(turnCount % 2); // sets up key listeners for each take depending on the turn
+        javax.swing.Timer timer = new javax.swing.Timer(10, e -> updateSimulation());
+        timer.start();
+        turnCount++;
+    }
 
+    public void setUpKeyListeners(int index) {
+        renderPanel.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                // Handle key presses for tank movement
+                int keyCode = e.getKeyCode();
+
+                if (keyCode == KeyEvent.VK_LEFT) {
+                    tank_Array.get(index).moveLeft(); // Move tank left
+                } else if (keyCode == KeyEvent.VK_RIGHT) {
+                    tank_Array.get(index).moveRight(); // Move tank right
+                }
+            }
+        });
+        renderPanel.setFocusable(true); // Make sure the panel can receive key events
     }
 }
