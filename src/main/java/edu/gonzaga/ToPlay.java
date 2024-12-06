@@ -372,9 +372,8 @@ public class ToPlay {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Draw each tank in the tank array
-                for (Tank tank : tank_Array) {
-                    tank.draw(g);  // Call the draw method to render the tank
-                }
+                tank1.draw(g);
+                tank2.draw(g); 
             }
         });
     
