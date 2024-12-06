@@ -1,5 +1,7 @@
 package edu.gonzaga;
 
+import java.awt.Color;
+
 import org.dyn4j.dynamics.Body;
 import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.dynamics.joint.RevoluteJoint;
@@ -11,7 +13,8 @@ public class Tank {
     private int health;
     private int xCord;
     private int yCord;
-    private String color;
+    private String color; // String representation of color
+    private Color bodyColor; // Actual Color object used for rendering
     private Boolean moved;
 
     // Dimensions for the tank body and barrel
@@ -24,20 +27,18 @@ public class Tank {
         this.xCord = xCord;
         this.yCord = yCord;
         this.health = health;
-        this.color = color;
+        setColor(color); // Set both the string and actual color
 
         // Create the tank body with specified dimensions
         this.body = new Body();
         Rectangle tankShape = new Rectangle(bodyWidth, bodyHeight);
         this.body.addFixture(new BodyFixture(tankShape));
-        // this.body.setMass(); // Set the mass for physics simulation
         this.body.translate(xCord, yCord);
 
         // Create the barrel with specified dimensions
         this.barrel = new Body();
         Rectangle barrelShape = new Rectangle(barrelWidth, barrelHeight);
         this.barrel.addFixture(new BodyFixture(barrelShape));
-        // this.barrel.setMass();
         this.barrel.translate(xCord, yCord + bodyHeight / 2 + barrelHeight / 2); // Position it above the tank
     }
 
@@ -96,7 +97,6 @@ public class Tank {
         this.body.removeAllFixtures();
         Rectangle tankShape = new Rectangle(bodyWidth, bodyHeight);
         this.body.addFixture(new BodyFixture(tankShape));
-        // this.body.setMass();
     }
 
     // Method to recreate the barrel with updated dimensions
@@ -104,7 +104,6 @@ public class Tank {
         this.barrel.removeAllFixtures();
         Rectangle barrelShape = new Rectangle(barrelWidth, barrelHeight);
         this.barrel.addFixture(new BodyFixture(barrelShape));
-        // this.barrel.setMass();
     }
 
     // Method to create a revolute joint for the barrel
@@ -137,47 +136,46 @@ public class Tank {
         this.yCord = yCord;
     }
 
-    // This will fire the tank and increase shotcount, uses artillery
-    public int fire() {
-        // returning 0 until artillery is made and can be used
-        return 0;
-    }
-
     public String getColor() {
         return color;
     }
 
+    // Update the string color and the Color object
     public void setColor(String color) {
         this.color = color;
+        this.bodyColor = parseColor(color);
+    }
+
+    public Color getBodyColor() {
+        return bodyColor;
     }
 
     public Body getBody() {
         return body;
     }
 
-    public Integer moveLeft() {
-        if (this.xCord < 5) {
-            this.xCord = 0;
-        } else {
-            this.xCord -= 5;
-        }
-        moved = true;
-        return xCord;
-    }
-
-    public Integer moveRight() {
-        if (this.xCord > 195) {
-            this.xCord = 200;
-        } else {
-            this.xCord += 5;
-        }
-        moved = true;
-        return xCord;
-
-    }
-
     public Body getBarrel() {
         return barrel;
+    }
+
+    // Utility to convert a string into a Color object
+    private Color parseColor(String color) {
+        switch (color.toLowerCase()) {
+            case "red":
+                return Color.RED;
+            case "blue":
+                return Color.BLUE;
+            case "green":
+                return Color.GREEN;
+            case "yellow":
+                return Color.YELLOW;
+            case "black":
+                return Color.BLACK;
+            case "white":
+                return Color.WHITE;
+            default:
+                return Color.GRAY; // Default color
+        }
     }
 
     // Methods for moving the tank
@@ -195,5 +193,9 @@ public class Tank {
 
     public void hit(int damage) {
         this.health = Math.max(0, this.health - damage);
+    }
+
+    public int fire() {
+        return 0; // Placeholder for artillery implementation
     }
 }
