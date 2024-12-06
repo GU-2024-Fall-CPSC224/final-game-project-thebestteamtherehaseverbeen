@@ -222,7 +222,6 @@ public class Tank {
         }
         this.moved = true;
         return xCord;
-
     }
 
     public void hit(int damage) {
@@ -242,32 +241,32 @@ public class Tank {
     }
 
     public int fire() {
-    // Create a new artillery object
-    Artillery newArtillery = new Artillery();
-    newArtillery.setPower(50); // Set the power of the artillery
-    newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate based on barrel's position
-    newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y coordinate based on tank's position
+        // Create a new artillery object
+        Artillery newArtillery = new Artillery();
+        newArtillery.setPower(50); // Set the power of the artillery
+        newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate based on barrel's position
+        newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y coordinate based on tank's position
 
-    // Create a simple window to visualize the firing
-    JFrame fireFrame = new JFrame("Artillery Fire");
-    fireFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    fireFrame.setSize(800, 600);
+        // Create a simple window to visualize the firing
+        JFrame fireFrame = new JFrame("Artillery Fire");
+        fireFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        fireFrame.setSize(800, 600);
 
-    JPanel firePanel = new JPanel() {
-        @Override
-        protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            g.setColor(newArtillery.getColor());
-            g.fillOval(newArtillery.getArtX(), newArtillery.getArtY(), 
-                       (int) (newArtillery.getRadius() * 2), 
-                       (int) (newArtillery.getRadius() * 2));
-        }
-    };
+        JPanel firePanel = new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.setColor(newArtillery.getColor());
+                g.fillOval(newArtillery.getArtX(), newArtillery.getArtY(),
+                        (int) (newArtillery.getRadius() * 2),
+                        (int) (newArtillery.getRadius() * 2));
+            }
+        };
 
-    fireFrame.add(firePanel);
-    fireFrame.setVisible(true);
+        fireFrame.add(firePanel);
+        fireFrame.setVisible(true);
 
-    return newArtillery.getPower(); // Return the power as a result
-}
+        return newArtillery.getPower(); // Return the power as a result
+    }
 
 }

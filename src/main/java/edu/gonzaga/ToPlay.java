@@ -375,13 +375,11 @@ public class ToPlay {
 
     public void createWorld() {
         World world = new World();
-        Ground ground = new Ground(100, 300); // Assuming this is a custom class for the ground
-
+        Ground ground = new Ground(100, 300);
         // Create tanks and add them to the tank array
 
         tank_Array.add(tank1);
         tank_Array.add(tank2);
-
         // Create a custom rendering panel with a background image
         JPanel renderPanel = new JPanel() {
             private Image backgroundImage = new ImageIcon("background.png").getImage();
@@ -390,11 +388,7 @@ public class ToPlay {
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
                 // Draw the background image
-
                 g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
-
-                // Draw the ground
-                // ground.draw(g);
 
                 // Draw each tank
                 for (Tank tank : tank_Array) {
@@ -402,27 +396,23 @@ public class ToPlay {
                 }
             }
         };
-
-        // Add the rendering panel to the game frame
-        gameFrame.add(renderPanel);
-
         // Use a timer to continuously repaint the panel
         javax.swing.Timer timer = new javax.swing.Timer(16, e -> renderPanel.repaint());
         timer.start();
         fireButtonPanel.add(fireButton);
         fireButton.setBackground(Color.DARK_GRAY);
-        fireButton.setForeground(Color.white);
 
-        fireButtonPanel.setSize(100, 40);
-        fireButtonPanel.setLocation(200, 800);
-        gameFrame.add(fireButtonPanel);
+        fireButton.setForeground(Color.WHITE);
+        // Configure the game frame layout
+        gameFrame.setLayout(new BorderLayout()); // Set layout to BorderLayout
+        gameFrame.add(renderPanel, BorderLayout.CENTER); // Add renderPanel to the center
+        gameFrame.add(fireButtonPanel, BorderLayout.SOUTH); // Add fireButtonPanel to the bottom
+
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameFrame.setSize(1400, 850);
         gameFrame.setLocation(50, 20);
         gameFrame.setVisible(true); // Make the frame visible
     }
-
     // when adding action listener for continue, set the names again in case users
     // do not press 'Enter'
-
 }
