@@ -377,7 +377,9 @@ public class ToPlay {
         World world = new World();
         Ground ground = new Ground(100, 300);
         // Create tanks and add them to the tank array
-
+        Tank tank1 = new Tank(250, 700, 100, "Red");
+        Tank tank2 = new Tank(1100, 700, 100, "Green");
+        Castle castle = new Castle();
         tank_Array.add(tank1);
         tank_Array.add(tank2);
         // Create a custom rendering panel with a background image
@@ -394,6 +396,8 @@ public class ToPlay {
                 for (Tank tank : tank_Array) {
                     tank.draw(g);
                 }
+
+                castle.draw(g); 
             }
         };
         // Use a timer to continuously repaint the panel
