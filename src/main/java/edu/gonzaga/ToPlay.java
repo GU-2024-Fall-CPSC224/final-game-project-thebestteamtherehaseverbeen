@@ -377,8 +377,7 @@ public class ToPlay {
         World world = new World();
         Ground ground = new Ground(100, 300);
         // Create tanks and add them to the tank array
-        Tank tank1 = new Tank(250, 700, 100, "Red");
-        Tank tank2 = new Tank(1100, 700, 100, "Green");
+
         tank_Array.add(tank1);
         tank_Array.add(tank2);
         // Create a custom rendering panel with a background image
@@ -402,11 +401,19 @@ public class ToPlay {
         timer.start();
         fireButtonPanel.add(fireButton);
         fireButton.setBackground(Color.DARK_GRAY);
+<<<<<<< HEAD
+=======
+
+>>>>>>> e11aba5346ba0d20fc6fbd2d863a03391bc5dc6c
         fireButton.setForeground(Color.WHITE);
         // Configure the game frame layout
         gameFrame.setLayout(new BorderLayout()); // Set layout to BorderLayout
         gameFrame.add(renderPanel, BorderLayout.CENTER); // Add renderPanel to the center
         gameFrame.add(fireButtonPanel, BorderLayout.SOUTH); // Add fireButtonPanel to the bottom
+<<<<<<< HEAD
+=======
+
+>>>>>>> e11aba5346ba0d20fc6fbd2d863a03391bc5dc6c
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameFrame.setSize(1400, 850);
         gameFrame.setLocation(50, 20);
