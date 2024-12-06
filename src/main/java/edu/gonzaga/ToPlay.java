@@ -364,8 +364,8 @@ public class ToPlay {
         Ground ground = new Ground(100, 300); // Assuming this is a custom class for the ground
 
         // Create tanks and add them to the tank array
-        Tank tank1 = new Tank(200, 500, 100, "Red");
-        Tank tank2 = new Tank(800, 500, 100, "Green");
+        Tank tank1 = new Tank(250, 700, 100, "Red");
+        Tank tank2 = new Tank(1100, 700, 100, "Green");
         tank_Array.add(tank1);
         tank_Array.add(tank2);
 
@@ -378,7 +378,7 @@ public class ToPlay {
                 super.paintComponent(g);
                 // Draw the background image
 
-                g.drawImage(backgroundImage, 50, 20, getWidth(), getHeight(), this);
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
                 // Draw the ground
                 // ground.draw(g);
