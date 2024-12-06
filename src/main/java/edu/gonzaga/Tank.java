@@ -1,8 +1,12 @@
 package edu.gonzaga;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
@@ -208,6 +212,7 @@ public class Tank {
             this.barrel.translate(5, 0); // Move the barrel along with the tank
 
         }
+        this.moved = true;
         return xCord;
     }
 
@@ -216,42 +221,104 @@ public class Tank {
     }
 
     // Inside the Tank class, add the draw method
-public void draw(Graphics g) {
-    // Draw the body of the tank
-    g.setColor(this.bodyColor);
-    g.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
+    public void draw(Graphics g, Tank tank, Tank tank1, Tank tank2, Artillery newArtillery) {
+        if (tank == tank1) {
+            Graphics2D g2d = (Graphics2D) g; // Cast Graphics to Graphics2D for advanced features
 
-    // Draw the barrel of the tank
-    g.setColor(Color.GRAY);  // or another color for the barrel
-    g.fillRect(this.xCord, (int) (this.yCord + bodyHeight / 2 - barrelHeight / 2),
-            (int) this.barrelWidth, (int) this.barrelHeight);
-}
+            // Save the current transformation state
+            AffineTransform originalTransform = g2d.getTransform();
 
-    public int fire() {
+            // Draw the body of the tank
+            g2d.setColor(this.bodyColor);
+            g2d.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
+
+            // Adjust the barrel base coordinates to move it up and to the right
+            int barrelBaseX = this.xCord + 30; // Move farther right from the body
+            int barrelBaseY = ((int) (this.yCord + bodyHeight / 2 - 10)) - 13; // Move higher up
+
+            // Move the origin to the new barrel's base
+            g2d.translate(barrelBaseX, barrelBaseY);
+
+            // Rotate the barrel to 45 degrees (in radians)
+            g2d.rotate(Math.toRadians(-45)); // -45 degrees for an upward angle
+
+            // Draw the barrel at the new rotated position
+            g2d.setColor(Color.BLACK);
+            g2d.fillRect(0, -(int) (barrelHeight / 2), (int) barrelWidth, (int) barrelHeight);
+
+            // Restore the original transformation state
+            g2d.setTransform(originalTransform);
+            newArtillery.draw(g, tank);
+            newArtillery.setLocation((tank.getXCord()) + 55, (tank.getYCord() - 20));
+        } else {
+            Graphics2D g2d = (Graphics2D) g; // Cast Graphics to Graphics2D for advanced features
+
+            // Save the current transformation state
+            AffineTransform originalTransform = g2d.getTransform();
+
+            // Draw the body of the tank
+            g2d.setColor(this.bodyColor);
+            g2d.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
+
+            // Adjust the barrel base coordinates to move it up and to the right
+            int barrelBaseX = this.xCord + 10; // Move farther right from the body
+            int barrelBaseY = ((int) (this.yCord + bodyHeight / 2 - 10)) - 30; // Move higher up
+
+            // Move the origin to the new barrel's base
+            g2d.translate(barrelBaseX, barrelBaseY);
+
+            // Rotate the barrel to 45 degrees (in radians)
+            g2d.rotate(Math.toRadians(45)); // -45 degrees for an upward angle
+
+            // Draw the barrel at the new rotated position
+            g2d.setColor(Color.BLACK);
+            g2d.fillRect(0, -(int) (barrelHeight / 2), (int) barrelWidth, (int) barrelHeight);
+
+            // Restore the original transformation state
+            g2d.setTransform(originalTransform);
+            newArtillery.draw(g, tank);
+            newArtillery.setLocation((tank.getXCord()) + 10, (tank.getYCord()) - 20);
+        }
+
+    }
+
+    public int fire(Tank tank1, JFrame gameFrame) {
         // Create a new artillery object
         Artillery newArtillery = new Artillery();
         newArtillery.setPower(50); // Set the power of the artillery
-        newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate based on barrel's position
-        newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y coordinate based on tank's position
+        newArtillery.setArtX(200);
+        newArtillery.setArtY(200);
+        // newArtillery.setArtX(this.xCord + (int) barrelWidth); // Set X coordinate
+        // based on barrel's position
+        // newArtillery.setArtY(this.yCord + (int) (bodyHeight / 2)); // Set Y
+        // coordinate based on tank's position
 
-        // Create a simple window to visualize the firing
-        JFrame fireFrame = new JFrame("Artillery Fire");
-        fireFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        fireFrame.setSize(800, 600);
-
+        // Create the firePanel for rendering the artillery
         JPanel firePanel = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
+                // Set color for artillery
                 g.setColor(newArtillery.getColor());
-                g.fillOval(newArtillery.getArtX(), newArtillery.getArtY(),
-                        (int) (newArtillery.getRadius() * 2),
-                        (int) (newArtillery.getRadius() * 2));
+                // Draw the artillery as a circle
+                g.fillOval(0, 0, (int) (newArtillery.getRadius() * 2), (int) (newArtillery.getRadius() * 2));
             }
         };
 
-        fireFrame.add(firePanel);
-        fireFrame.setVisible(true);
+        // Set the panel location, size, and background color
+        int artilleryDiameter = (int) (newArtillery.getRadius() * 2);
+        firePanel.setBounds(newArtillery.getArtX(), newArtillery.getArtY(), artilleryDiameter, artilleryDiameter);
+
+        firePanel.setBackground(Color.black); // Set the background to black to make the artillery stand out
+        firePanel.setOpaque(false); // Make sure the panel's background is not blocking the drawing
+
+        // Add the firePanel to the JFrame
+        gameFrame.setLayout(null); // Use absolute positioning
+        gameFrame.add(firePanel); // Add the panel to the frame
+
+        // Revalidate and repaint the frame to ensure the panel is rendered
+        gameFrame.revalidate();
+        gameFrame.repaint();
 
         return newArtillery.getPower(); // Return the power as a result
     }

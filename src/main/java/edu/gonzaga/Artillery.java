@@ -12,9 +12,9 @@ public class Artillery {
     private Integer artilleryY;
     private Body body;
     private Color color = Color.RED;
-    private double radius = 15; // Radius of the artillery projectile
+    private double radius = 10; // Radius of the artillery projectile
 
-    public Artillery(){
+    public Artillery() {
         power = 0;
         artilleryX = 0;
         artilleryY = 0;
@@ -60,16 +60,22 @@ public class Artillery {
         return this.artilleryY;
     }
 
-    public double getRadius(){
-        return this.radius; 
+    public double getRadius() {
+        return this.radius;
     }
 
-    public Color getColor(){
+    public Color getColor() {
         return this.color;
     }
 
-    public void draw(Graphics g) {
+    public void setLocation(int xCord, int yCord) {
+        artilleryX = xCord;
+        artilleryY = yCord;
+    }
+
+    public void draw(Graphics g, Tank tank) {
         g.setColor(color);
+        // g.fillOval(tank.getXCord(), tank.getYCord(), 15, 15);
         g.fillOval(artilleryX - (int) radius, artilleryY - (int) radius, (int) radius * 2, (int) radius * 2);
     }
 

@@ -323,7 +323,7 @@ public class ToPlay {
             public void actionPerformed(ActionEvent actionEvent) {
                 if (actionEvent.getSource() == fireButton) {
                     System.out.println("Fire button was pressed");
-                    tank1.fire();
+                    tank1.fire(tank1, gameFrame);
                     // we will call fire from here
                 }
             }
@@ -380,6 +380,7 @@ public class ToPlay {
         Tank tank1 = new Tank(250, 700, 100, "Red");
         Tank tank2 = new Tank(1100, 700, 100, "Green");
         Castle castle = new Castle();
+        Artillery newArtillery = new Artillery();
         tank_Array.add(tank1);
         tank_Array.add(tank2);
         // Create a custom rendering panel with a background image
@@ -394,10 +395,11 @@ public class ToPlay {
 
                 // Draw each tank
                 for (Tank tank : tank_Array) {
-                    tank.draw(g);
+                    tank.draw(g, tank, tank1, tank2, newArtillery);
+
                 }
 
-                castle.draw(g); 
+                // castle.draw(g);
             }
         };
         // Use a timer to continuously repaint the panel
@@ -405,11 +407,13 @@ public class ToPlay {
         timer.start();
         fireButtonPanel.add(fireButton);
         fireButton.setBackground(Color.DARK_GRAY);
+
         fireButton.setForeground(Color.WHITE);
         // Configure the game frame layout
         gameFrame.setLayout(new BorderLayout()); // Set layout to BorderLayout
         gameFrame.add(renderPanel, BorderLayout.CENTER); // Add renderPanel to the center
         gameFrame.add(fireButtonPanel, BorderLayout.SOUTH); // Add fireButtonPanel to the bottom
+
         gameFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         gameFrame.setSize(1400, 850);
         gameFrame.setLocation(50, 20);
