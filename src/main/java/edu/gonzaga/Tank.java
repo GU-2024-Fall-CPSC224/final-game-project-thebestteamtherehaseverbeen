@@ -116,7 +116,8 @@ if it does not work
 
     // RevoluteJoint for barrel (unchanged as per your request)
     public RevoluteJoint createBarrelJoint() {
-        return new RevoluteJoint(this.body, this.barrel, this.body.getWorldCenter());
+        RevoluteJoint joint = new RevoluteJoint(this.body, this.barrel, this.body.getWorldCenter());
+        return joint;
     }
 
     // Getters and Setters for other properties
@@ -162,6 +163,7 @@ if it does not work
         return body;
     }
 
+
     public Body getBarrel() {
         return barrel;
     }
@@ -183,20 +185,32 @@ if it does not work
                 return Color.WHITE;
             default:
                 return Color.GRAY; // Default color
+            
+    public Integer moveLeft() {
+        if (this.xCord < 5) {
+            this.xCord = 0;
+            this.body.translate(-this.xCord, 0);
+            this.barrel.translate(-this.xCord, 0); // Move the barrel along with the tank
+        } else {
+            this.xCord -= 5;
+            this.body.translate(-5, 0);
+            this.barrel.translate(-5, 0); // Move the barrel along with the tank
         }
+        moved = true;
+        return xCord;
     }
 
-    // Methods for moving the tank
-    public void moveMeLeft() {
-        this.xCord -= 5;
-        this.body.translate(-5, 0);
-        this.barrel.translate(-5, 0); // Move the barrel along with the tank
-    }
+    public Integer moveRight() {
+        if (this.xCord > 195) {
+            this.xCord = 200;
+            this.body.translate(200 - this.xCord, 0);
+            this.barrel.translate(200 - this.xCord, 0); // Move the barrel along with the tank
+        } else {
+            this.xCord += 5;
+            this.body.translate(5, 0);
+            this.barrel.translate(5, 0); // Move the barrel along with the tank
 
-    public void moveMeRight() {
-        this.xCord += 5;
-        this.body.translate(5, 0);
-        this.barrel.translate(5, 0); // Move the barrel along with the tank
+        }
     }
 
     public void hit(int damage) {

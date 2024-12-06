@@ -1,31 +1,28 @@
 package edu.gonzaga;
 
 public class Player {
-    public String name;
-    public String color;
 
-    public String getName() { // called from MainGame
-        return name;
-    }
-
-    public void setName(String name) { // called from MainGame
-        this.name = name;
-    }
-
-    public String getColor() { // called from MainGame
-        System.out.println(color);
-        return color;
-    }
-
-    public void setColor(String color) { // called from MainGame
-        this.color = color;
-        System.out.println(color);
-    }
+    private String name;
+    private Tank tank;
 
     public Player() {
-        this.name = "Unidentified User";
-        this.color = "Red";
+        tank = new Tank();
+
     }
 
-    // still need the takeTurn method that is void with parameter of a Tank
+    public void setColor(String color) {
+        this.tank.setColor(color);
+    }
+
+    public Tank getTank() {
+        return this.tank;
+    }
+
+    public void setName(String str) {
+        this.name = str;
+    }
+
+    public void takeTurn() {
+
+    }
 }
