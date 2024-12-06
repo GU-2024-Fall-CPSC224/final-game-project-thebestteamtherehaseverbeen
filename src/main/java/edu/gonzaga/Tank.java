@@ -166,7 +166,7 @@ public class Tank {
             this.body.translate(-5, 0);
             this.barrel.translate(-5, 0); // Move the barrel along with the tank
         }
-        moved = true;
+        this.moved = true;
         return xCord;
     }
 
@@ -180,26 +180,13 @@ public class Tank {
             this.body.translate(5, 0);
             this.barrel.translate(5, 0); // Move the barrel along with the tank
         }
-        moved = true;
+        this.moved = true;
         return xCord;
 
     }
 
     public Body getBarrel() {
         return barrel;
-    }
-
-    // Methods for moving the tank
-    public void moveMeLeft() {
-        this.xCord -= 5;
-        this.body.translate(-5, 0);
-        this.barrel.translate(-5, 0); // Move the barrel along with the tank
-    }
-
-    public void moveMeRight() {
-        this.xCord += 5;
-        this.body.translate(5, 0);
-        this.barrel.translate(5, 0); // Move the barrel along with the tank
     }
 
     public void hit(int damage) {
