@@ -378,7 +378,7 @@ public class ToPlay {
                 super.paintComponent(g);
                 // Draw the background image
 
-                g.drawImage(backgroundImage, 50, 20, getWidth(), getHeight(), this);
+                g.drawImage(backgroundImage, 0, 0, getWidth(), getHeight(), this);
 
                 // Draw the ground
                 // ground.draw(g);
