@@ -359,6 +359,32 @@ public class ToPlay {
 
     public void createWorld() {
         World world = new World();
+        Ground ground = new Ground(100, 300);  // Assuming this is a custom class for the ground
+    
+        // Create and add tanks to the tank array
+        Tank tank1 = new Tank(500, 500, 100, "Red");
+        Tank tank2 = new Tank(1000, 500, 100, "Green");
+    
+        // Add action to render the tanks on screen (to make it visible)
+        gameFrame.add(new JPanel() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                // Draw each tank in the tank array
+                for (Tank tank : tank_Array) {
+                    tank.draw(g);  // Call the draw method to render the tank
+                }
+            }
+        });
+    
+        gameFrame.setVisible(true); // Make sure the game frame is visible
+    }
+
+
+    // public Tank getTankatIndex(int index){
+    // this.tank_Array(index);
+    // return tank_Array(index);
+    // }
         Ground ground = new Ground(100, 300);
         //Tank tank1 = new Tank(500, 500, 0, "Red");
         //Tank tank2 = new Tank(1000, 500, 0, "Green");
