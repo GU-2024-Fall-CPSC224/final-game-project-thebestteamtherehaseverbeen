@@ -2,9 +2,6 @@ package edu.gonzaga;
 
 import java.awt.geom.AffineTransform;
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.BorderLayout;
-
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -243,8 +240,6 @@ public class Tank {
             g2d.setTransform(originalTransform);
             newArtillery.draw(g, tank);
             newArtillery.setLocation((tank.getXCord()) + 55, (tank.getYCord() - 20));
-            newArtillery.setArtX((tank.getXCord()) + 55);
-            // newArtillery.setArtY(tank.getY);
         } else {
             Graphics2D g2d = (Graphics2D) g; // Cast Graphics to Graphics2D for advanced features
             // Save the current transformation state
@@ -371,13 +366,24 @@ public class Tank {
 
         // Create a new JPanel for the tsunami effect (blue background)
         JPanel tsunamiPanel = new JPanel();
+
         tsunamiPanel.setBackground(Color.blue);
         tsunamiFrame.add(tsunamiPanel, BorderLayout.CENTER);
-
+        JLabel tsunamiLabel = new JLabel("Uh oh! Tsunami!");
+        tsunamiLabel.setFont(new Font("Algerian", Font.BOLD, 30));
+        tsunamiPanel.add(tsunamiLabel, BorderLayout.NORTH);
+        tsunamiFrame.setLocation(200, 100);
+        JLabel aangLabel = new JLabel();
+        ImageIcon aangIcon = new ImageIcon("aang.png");
+        aangLabel.setIcon(aangIcon);
+        aangLabel.setSize(1100, 700);
+        aangLabel.setHorizontalAlignment(JLabel.CENTER);
         // Make sure the frame is visible
+        tsunamiFrame.add(aangLabel, BorderLayout.CENTER);
+        tsunamiFrame.add(tsunamiLabel, BorderLayout.NORTH);
         tsunamiFrame.setVisible(true);
 
-        // Optional: Debugging statement to confirm visibility
-        System.out.println("Tsunami frame created and visible.");
+        System.out.println("Tsunami frame created and visible."); // making sure it works
+
     }
 }
