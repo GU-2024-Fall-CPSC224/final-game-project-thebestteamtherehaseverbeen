@@ -363,14 +363,14 @@ public class ToPlay {
                 }
             }
         };
-        ActionListener fireButton = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent actionEvent) {
-                if (actionEvent.getSource() == fireButton) {
-                    System.out.println("Fire button was pressed");
-                }
-            }
-        };
+   //     ActionListener fireButton = new ActionListener() {
+   //         @Override
+    //        public void actionPerformed(ActionEvent actionEvent) {
+    //            if (actionEvent.getSource() == fireButton) {
+   //                 System.out.println("Fire button was pressed");
+  //              }
+   //         }
+    //    };
         start.addActionListener(buttonListener);
         howToPlay.addActionListener(buttonListener);
         player1NameTextField.addActionListener(textListener);
@@ -384,7 +384,7 @@ public class ToPlay {
         continueButton.addActionListener(continueListener);
         easy.addActionListener(difficultyListener);
         hard.addActionListener(difficultyListener);
-        fireButton.addActionListener(fireButtonListener);
+     //   fireButton.addActionListener(fireButtonListener);
     }
 
     public void createWorld() {

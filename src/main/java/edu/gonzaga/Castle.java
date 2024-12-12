@@ -7,12 +7,12 @@ import org.dyn4j.dynamics.BodyFixture;
 import org.dyn4j.geometry.Rectangle;
 
 public class Castle {
-    private int xCoordinate;
-    private Body body; 
-    private Color color = Color.BLACK; 
+    public int xCoordinate;
+    public Body body; 
+    public Color color = Color.BLACK; 
 
-    private int bodyWidth = 150;
-    private int bodyHeight = 300;
+    public int bodyWidth = 150;
+    public int bodyHeight = 300;
 
     public Castle() {
         color = Color.BLACK; 

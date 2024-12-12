@@ -45,7 +45,6 @@ public class Tank {
         this.barrel.addFixture(new BodyFixture(barrelShape));
         this.barrel.translate(xCord, yCord + bodyHeight / 2 + barrelHeight / 2); // Position it above the tank
     }
-<<<<<<< HEAD
     /*
      * we will need to make the tank and then pass it into this method and import
      * swing stuff and then
@@ -58,8 +57,6 @@ public class Tank {
      * playerTank.setVisible(true);
      * }
      */
-=======
->>>>>>> da8db98aa4048ad00c8e8e926ad1ba15472d35d1
 
     // Constructors with default dimensions
     public Tank(String color) {
@@ -223,10 +220,6 @@ public class Tank {
             this.barrel.translate(5, 0); // Move the barrel along with the tank
 
         }
-<<<<<<< HEAD
-=======
-        this.moved = true;
->>>>>>> da8db98aa4048ad00c8e8e926ad1ba15472d35d1
         return xCord;
     }
 
@@ -241,11 +234,7 @@ public class Tank {
         g.fillRect(this.xCord, this.yCord, (int) this.bodyWidth, (int) this.bodyHeight);
 
         // Draw the barrel of the tank
-<<<<<<< HEAD
         g.setColor(Color.BLACK); // or another color for the barrel
-=======
-        g.setColor(Color.GRAY); // or another color for the barrel
->>>>>>> da8db98aa4048ad00c8e8e926ad1ba15472d35d1
         g.fillRect(this.xCord, (int) (this.yCord + bodyHeight / 2 - barrelHeight / 2),
                 (int) this.barrelWidth, (int) this.barrelHeight);
     }
